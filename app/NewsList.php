@@ -5,10 +5,13 @@ namespace App;
 use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract; use Astrotomic\Translatable\Translatable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class NewsList extends Model  implements TranslatableContract
 {
 	use Translatable;
+    use SearchableTrait;
+
 
     protected $table = 'news_list';
 
@@ -21,6 +24,18 @@ class NewsList extends Model  implements TranslatableContract
     protected $appends = ['formatted_date', 'image_full_path', 'single_page_image_full_path', 'right_image_full_path', 'left_image_full_path', 'pdf_full_path'];
 
 
+
+
+    protected $searchable = [
+        'columns' => [
+            'news_list_translations.title' => 10,
+            'news_list_translations.excerpt' => 10,
+            'news_list.date' => 5,
+        ],
+        'joins' => [
+            'news_list_translations' => ['news_list_translations.news_list_id','news_list.id'],
+        ],
+    ];
     
 
     public function getFormattedDateAttribute()
