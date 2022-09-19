@@ -16,7 +16,7 @@ class ServicesList extends Model  implements TranslatableContract
     protected $hidden = ['translations'];
 
 
-    public $translatedAttributes = ["title","excerpt","learn_more","different_single_page"];
+    public $translatedAttributes = ["title","excerpt","learn_more"];
 
 	
 }
