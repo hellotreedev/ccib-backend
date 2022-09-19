@@ -13,6 +13,9 @@ class EService extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["title"];
 
 	

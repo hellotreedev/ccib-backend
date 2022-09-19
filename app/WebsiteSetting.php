@@ -13,7 +13,7 @@ class WebsiteSetting extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
-    public $translatedAttributes = ["enter_email_placeholder","subscribe_text","follow_us","rights"];
+    public $translatedAttributes = ["enter_email_placeholder","subscribe_text","follow_us","rights","hotline_text"];
 
 	
 }

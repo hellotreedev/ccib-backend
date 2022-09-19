@@ -13,6 +13,9 @@ class ServicesSetting extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["page_title","e_services_title"];
 
 	

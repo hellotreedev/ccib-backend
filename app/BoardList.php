@@ -13,6 +13,9 @@ class BoardList extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["name","position","excerpt","phone_text","fax_text"];
 
 	public function department() { return $this->belongsTo('App\Department'); } 

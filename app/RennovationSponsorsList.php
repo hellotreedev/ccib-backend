@@ -13,6 +13,9 @@ class RennovationSponsorsList extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["name","company"];
 
 	public function sponsor_level() { return $this->belongsTo('App\SponsorLevel'); } 

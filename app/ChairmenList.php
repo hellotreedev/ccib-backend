@@ -12,6 +12,9 @@ class ChairmenList extends Model  implements TranslatableContract
     protected $table = 'chairmen_list';
 
     protected $guarded = ['id'];
+    
+    protected $hidden = ['translations'];
+
 
     public $translatedAttributes = ["name","date_range"];
 

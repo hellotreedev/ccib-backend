@@ -12,6 +12,9 @@ class ChamberList extends Model  implements TranslatableContract
     protected $table = 'chamber_list';
 
     protected $guarded = ['id'];
+    
+    protected $hidden = ['translations'];
+
 
     public $translatedAttributes = ["title","subtitle","description"];
 

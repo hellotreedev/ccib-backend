@@ -13,6 +13,9 @@ class RennovationSponsorsSetting extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["page_title","about_us_title","about_us_description","sponsor_level_label"];
 
 	

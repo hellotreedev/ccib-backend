@@ -13,6 +13,9 @@ class Directory extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["page_title","section1_title","section1_description","section2_title"];
 
 	

@@ -12,6 +12,9 @@ class DirectoryList extends Model  implements TranslatableContract
     protected $table = 'directory_list';
 
     protected $guarded = ['id'];
+    
+    protected $hidden = ['translations'];
+
 
     public $translatedAttributes = ["title"];
 

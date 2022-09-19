@@ -13,6 +13,9 @@ class MilestonesList extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["date_title","description"];
 
 	

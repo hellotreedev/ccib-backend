@@ -13,6 +13,9 @@ class ServicesList extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["title","excerpt","learn_more","different_single_page"];
 
 	

@@ -13,6 +13,9 @@ class BoardOfDirectorsSetting extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+
     public $translatedAttributes = ["page_title","bureau_title","board_members_title"];
 
 	
