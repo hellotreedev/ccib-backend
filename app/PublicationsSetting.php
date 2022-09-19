@@ -13,6 +13,8 @@ class PublicationsSetting extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
     public $translatedAttributes = ["page_title","section_title","categories_title","view_pdf"];
 
 	
