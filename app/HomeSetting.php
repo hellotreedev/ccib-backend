@@ -78,6 +78,6 @@ class HomeSetting extends Model  implements TranslatableContract
         }
     }
 
-    public $translatedAttributes = ["about_title","about_description","read_more","news_events_title","view_all","services_title","publications_title","eservices_title","eservices_description","learn_more"];
+    public $translatedAttributes = ["about_title","about_description","read_more","news_events_title","view_all","services_title","publications_title","eservices_title","eservices_description","learn_more", "banner_title"];
 
 }
