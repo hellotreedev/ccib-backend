@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract; use Astrotomic\Translatable\Translatable;
 
@@ -13,7 +14,16 @@ class WebsiteSetting extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
+    protected $hidden = ['translations'];
+
+    public $appends = ['hotline_logo_full_path'];
+
     public $translatedAttributes = ["enter_email_placeholder","subscribe_text","follow_us","rights","hotline_text"];
 
+    public function getHotlineLogoFullPathAttribute(){
+        $hotline_logo_full_path = Helper::fullPath($this->hotline_logo);
+
+        return $hotline_logo_full_path;
+    }
 	
 }
