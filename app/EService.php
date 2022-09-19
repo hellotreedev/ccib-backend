@@ -16,7 +16,7 @@ class EService extends Model  implements TranslatableContract
     protected $hidden = ['translations'];
 
 
-    public $translatedAttributes = ["title"];
+    public $translatedAttributes = ["title", "excerpt", "description", "terms_text", "benefits_text", "documents_text", "fees_text", "label"];
 
 	
 }
