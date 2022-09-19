@@ -18,7 +18,7 @@ class WebsiteSetting extends Model  implements TranslatableContract
 
     public $appends = ['hotline_logo_full_path'];
 
-    public $translatedAttributes = ["enter_email_placeholder","subscribe_text","follow_us","rights","hotline_text"];
+    public $translatedAttributes = ["enter_email_placeholder","subscribe_text","follow_us","rights","hotline_text", "search_here", "search_btn"];
 
     public function getHotlineLogoFullPathAttribute(){
         $hotline_logo_full_path = Helper::fullPath($this->hotline_logo);
