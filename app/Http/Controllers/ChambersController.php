@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\ChamberList;
 use App\ChamberSetting;
+use App\Department;
 use Illuminate\Http\Request;
 
 class ChambersController extends Controller
@@ -13,6 +14,8 @@ class ChambersController extends Controller
 
         $chambers_list = ChamberList::orderBy("ht_pos")->get();
 
-        return compact("chambers_settings", "chambers_list");
+        $departments = Department::get();
+
+        return compact("chambers_settings", "chambers_list", "departments");
     }
 }

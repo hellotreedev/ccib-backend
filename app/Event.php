@@ -17,7 +17,9 @@ class Event extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    public $translatedAttributes = ["title"];
+        public $translatedAttributes = ["title","page_title","date_location","description","notes","more_text"];
+
+
 
     public $appends = ["image_full_path"];
 

@@ -22,4 +22,9 @@ class ProjectsController extends Controller
         $previous_projects = Project::where("ongoing",0)->with("project_categories")->get();
         return compact('previous_projects');
     }
+
+    public function singleProject(Request $request){
+        $project = Project::where("slug", $request->slug)->with("partners", "associates", "activity", "articles")->first();
+        return $project;
+    }
 }

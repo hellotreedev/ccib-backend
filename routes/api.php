@@ -70,6 +70,7 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/projects-settings', [ProjectsController::class, 'index']);
     Route::get('/ongoing-projects', [ProjectsController::class, 'ongoingProjects']);
     Route::get('/previous-projects', [ProjectsController::class, 'previousProjects']);
+    Route::get('/project/{slug}', [ProjectsController::class, 'singleProject']);
     Route::get('/circulars-settings', [CircularsController::class, 'index']);
     Route::get('/circulars', [CircularsController::class, 'circulars']);
     Route::get('/news-events-settings', [NewsEventsController::class, 'index']);
@@ -77,4 +78,6 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
 
     Route::post('/newsletter', [MailchimpController::class, 'index']);
     Route::post('/contact', [ContactController::class, 'contact']);
+    Route::post('/events-contact', [EventsController::class, 'contact']);
+    
 });
