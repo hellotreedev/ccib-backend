@@ -16,12 +16,22 @@ class HomeSetting extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    public $appends = ['main_image_full_path', 'image1_full_path', 'image2_full_path', 'image3_full_path', 'image4_full_path', 'image5_full_path'];
+    public $appends = ['about_image_full_path','main_image_full_path', 'image1_full_path', 'image2_full_path', 'image3_full_path', 'image4_full_path', 'image5_full_path'];
 
     public function getMainImageFullPathAttribute()
     {
         if (isset($this->main_image)) {
             $full_path_image = Helper::fullPath($this->main_image);
+            return $full_path_image;
+        } else {
+            return null;
+        }
+    }
+
+    public function getAboutImageFullPathAttribute()
+    {
+        if (isset($this->about_image)) {
+            $full_path_image = Helper::fullPath($this->about_image);
             return $full_path_image;
         } else {
             return null;
