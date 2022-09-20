@@ -29,7 +29,7 @@ class ChamberSetting extends Model  implements TranslatableContract
     }
 
 
-    public $translatedAttributes = ["page_title","page_subtitle","title","subtitle","pdf"];
+    public $translatedAttributes = ["page_title","page_subtitle","title","subtitle","pdf", "download_pdf"];
 
 	
 }
