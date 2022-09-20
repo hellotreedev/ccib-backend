@@ -53,6 +53,7 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/rennovation', [RennovationController::class, 'index']);
     Route::get('/board-directors', [BoardController::class, 'index']);
     Route::get('/services', [ServicesController::class, 'index']);
+    Route::get('/services/{slug}', [ServicesController::class, 'singleService']);
     Route::get('/e-services', [EServicesController::class, 'index']);
     Route::get('/e-services/{slug}', [EServicesController::class, 'singleEservice']);
     Route::get('/legislation', [LegislationController::class, 'index']);

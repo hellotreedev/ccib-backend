@@ -17,6 +17,7 @@ class ServicesController extends Controller
 
         $services = ServicesList::orderBy("ht_pos")
             ->orderBy("id")
+            ->with("related_publications", "related_services")
             ->get();
 
         foreach ($services as $key => $service) {
@@ -24,13 +25,24 @@ class ServicesController extends Controller
         }
 
         $e_services = EService::orderBy("ht_pos")
-        ->orderBy("id")
-        ->get();
+            ->orderBy("id")
+            ->get();
 
         foreach ($e_services as $key => $service) {
             $service->icon = Storage::url($service->icon);
         }
 
         return compact("services_settings", "services", "e_services");
+    }
+
+    public function singleService(Request $request)
+    {
+        $service = ServicesList::where("slug", $request->slug)
+            ->with("related_publications", "related_services")
+            ->first();
+
+        $service->icon = Storage::url($service->icon);
+
+        return $service;
     }
 }
