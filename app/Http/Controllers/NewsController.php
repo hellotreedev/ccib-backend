@@ -64,4 +64,14 @@ class NewsController extends Controller
             ->paginate(6);
         return $news;
     }
+
+    public function singleNews(Request $request)
+    {
+        $news = NewsList::where("slug", $request->slug)
+            ->with("news_categories")
+            ->with("more_news")
+            ->first();
+
+        return $news;
+    }
 }

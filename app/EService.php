@@ -29,7 +29,7 @@ class EService extends Model  implements TranslatableContract
     }
 
 
-    public $translatedAttributes = ["title", "excerpt", "description", "terms_text", "benefits_text", "documents_text", "fees_text", "label"];
+    public $translatedAttributes = ["title", "excerpt", "description", "terms_text", "benefits_text", "documents_text", "fees_text", "label", 'section1_title', 'section1_text', 'section2_content',  'section3_title', 'section3_subtitle', 'section4_content','section5_content', 'download_btn', 'btn_pdf', 'btn_url'];
 
 	
 }

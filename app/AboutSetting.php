@@ -16,7 +16,7 @@ class AboutSetting extends Model  implements TranslatableContract
     protected $hidden = ['translations'];
 
 
-    public $translatedAttributes = ["page_title","about_us_title","about_us_description","chariman_letter_title","chariman_letter_description","strategy_title","strategy_excerpt","mission_title","mission_description","milestones_title","milestones_subtitle","charimen_title","date_range","chamber_law_image","chamber_law_title","chamber_law_excerpt","read","board_directors_title","board_directors_subtitle","view_all","renovation_sponsors","view"];
+    public $translatedAttributes = ["page_title","about_us_title","about_us_description","chariman_letter_title","chariman_letter_description_left","chariman_letter_description_right", "strategy_title","strategy_excerpt","mission_title","mission_description","milestones_title","milestones_subtitle","charimen_title","date_range","chamber_law_image","chamber_law_title","chamber_law_excerpt","read","board_directors_title","board_directors_subtitle","view_all","renovation_sponsors","view"];
 
 	
 }

@@ -54,12 +54,14 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/board-directors', [BoardController::class, 'index']);
     Route::get('/services', [ServicesController::class, 'index']);
     Route::get('/e-services', [EServicesController::class, 'index']);
+    Route::get('/e-services/{slug}', [EServicesController::class, 'singleEservice']);
     Route::get('/legislation', [LegislationController::class, 'index']);
     Route::get('/directory', [DirectoryController::class, 'index']);
     Route::get('/publications-settings', [PublicationController::class, 'index']);
     Route::get('/publications', [PublicationController::class, 'publications']);
     Route::get('/news-settings', [NewsController::class, 'index']);
     Route::get('/news', [NewsController::class, 'news']);
+    Route::get('/news/{slug}', [NewsController::class, 'singleNews']);
     Route::get('/searchNews', [NewsController::class, 'searchNews']);
     Route::get('/events-settings', [EventsController::class, 'index']);
     Route::get('/previous-events', [EventsController::class, 'prevEvents']);

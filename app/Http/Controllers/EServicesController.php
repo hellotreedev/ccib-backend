@@ -17,4 +17,11 @@ class EServicesController extends Controller
 
         return compact("e_services");
     }
+
+    public function singleEservice(Request $request) {
+        $e_service = EService::where("slug", $request->slug)->first();
+        $e_service->icon = Storage::url($e_service->icon);
+        
+        return compact('e_service');
+    }
 }
