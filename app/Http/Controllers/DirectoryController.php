@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\ActivityMember;
 use App\Directory as MembershipDirectory;
 use App\DirectoryList;
 use App\SectorOfActivity;
@@ -34,5 +35,12 @@ class DirectoryController extends Controller
         $activity = Activity::orderBy("ht_pos")->orderBy("id")->get();
 
         return compact("single_directory_settings", "directory", "sector_of_activity", "activity");
+    }
+
+    public function searchDirectory(Request $request)
+    {
+        $members = ActivityMember::search($request->queryString)
+            ->get();
+        return $members;
     }
 }

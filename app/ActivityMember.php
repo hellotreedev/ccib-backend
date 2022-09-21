@@ -6,10 +6,13 @@ use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class ActivityMember extends Model  implements TranslatableContract
 {
     use Translatable;
+    use SearchableTrait;
+
 
     protected $table = 'activity_members';
 
@@ -18,6 +21,16 @@ class ActivityMember extends Model  implements TranslatableContract
     protected $hidden = ['translations'];
 
     public $appends = ['image_full_path'];
+
+    protected $searchable = [
+        'columns' => [
+            'activity_members_translations.title' => 10,
+        ],
+        'joins' => [
+            'activity_members_translations' => ['activity_members_translations.activity_member_id','activity_members.id'],
+        ],
+    ];
+
 
     public function getImageFullPathAttribute()
     {
@@ -43,4 +56,6 @@ class ActivityMember extends Model  implements TranslatableContract
     {
         return $this->belongsToMany('App\DirectoryList', 'directory_list_activity_member', 'activity_member_id', 'directory_list_id')->orderBy('directory_list_activity_member.ht_pos');
     }
+
+    
 }
