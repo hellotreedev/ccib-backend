@@ -16,7 +16,7 @@ class ServicesList extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    public $appends = ["gold_icon_full_path", "phone_icon_full_path", "fax_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path", "pdf_full_path"];
+    public $appends = ["image_full_path","gold_icon_full_path", "phone_icon_full_path", "fax_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path", "pdf_full_path"];
     
     public $translatedAttributes = ["title","excerpt","learn_more","single_page_title","about_title","about_description", "publications_title", "services_title", "pdf", "phone_text", "fax_text", "ext_text", "download_pdf"];
 
@@ -25,6 +25,17 @@ class ServicesList extends Model  implements TranslatableContract
             if (isset($this->gold_icon)) {
                 $gold_icon_full_path = Helper::fullPath($this->gold_icon);
                 return $gold_icon_full_path;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public function getImageFullPathAttribute(){
+        {
+            if (isset($this->image)) {
+                $image_full_path = Helper::fullPath($this->image);
+                return $image_full_path;
             } else {
                 return null;
             }
