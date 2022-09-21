@@ -57,7 +57,6 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/e-services', [EServicesController::class, 'index']);
     Route::get('/e-services/{slug}', [EServicesController::class, 'singleEservice']);
     Route::get('/legislation', [LegislationController::class, 'index']);
-    Route::get('/directory', [DirectoryController::class, 'index']);
     Route::get('/publications-settings', [PublicationController::class, 'index']);
     Route::get('/publications', [PublicationController::class, 'publications']);
     Route::get('/news-settings', [NewsController::class, 'index']);
@@ -75,6 +74,8 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/circulars', [CircularsController::class, 'circulars']);
     Route::get('/news-events-settings', [NewsEventsController::class, 'index']);
     Route::get('/contact-data', [ContactController::class, 'index']);
+    Route::get('/directory', [DirectoryController::class, 'index']);
+    Route::get('/directory/{slug}', [DirectoryController::class, 'singleDirectory']);
 
     Route::post('/newsletter', [MailchimpController::class, 'index']);
     Route::post('/contact', [ContactController::class, 'contact']);

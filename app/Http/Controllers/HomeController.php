@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use App\HomeNewsEvent;
 use App\HomeSetting;
 use App\NewsCategory;
 use App\PublicationsList;
@@ -16,11 +17,7 @@ class HomeController extends Controller
     {
         $home_data = HomeSetting::first();
 
-        $categories_home = NewsCategory::with('category_news')
-            ->where("home_display", 1)
-            ->get();
-
-        $home_events = Event::where('home_display', 1)->get();
+        $home_swiper = HomeNewsEvent::with("news_categories.category_news", "events")->get();
 
         $services = ServicesList::orderBy("ht_pos")
             ->orderBy("id")
@@ -35,6 +32,6 @@ class HomeController extends Controller
         ->with("categories")
         ->get();
 
-        return compact('home_data', 'categories_home', 'home_events', 'services', 'publications_list');
+        return compact('home_data', 'home_swiper', 'services', 'publications_list');
     }
 }
