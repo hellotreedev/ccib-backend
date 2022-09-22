@@ -47,4 +47,5 @@ class DirectoryController extends Controller
             ->get();
         return $members;
     }
+    
 }
