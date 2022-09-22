@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Helper;
+use App\NewsCategory;
 use App\NewsList;
 use App\NewsSetting;
+use App\Year;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +19,13 @@ class NewsController extends Controller
     {
         // $returned = Helper::shout();
         $news_settings = NewsSetting::first();
-        return compact("news_settings");
+
+        $years = Year::orderBy('ht_pos')->orderBy('id')->get();
+
+        $categories = NewsCategory::orderBy('ht_pos')->orderBy('id')->get();
+
+
+        return compact("news_settings", "years", "categories");
     }
 
     public function news(Request $request)
