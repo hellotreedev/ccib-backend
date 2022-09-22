@@ -21,7 +21,7 @@ class NewsList extends Model  implements TranslatableContract
 
     public $translatedAttributes = ["title","excerpt","news_title","single_page_pdf","description","share","read_more","left_text","right_text"];
 
-    protected $appends = ['formatted_date', "download_icon", 'image_full_path', 'single_page_image_full_path', 'right_image_full_path', 'left_image_full_path', 'pdf_full_path'];
+    protected $appends = ['formatted_date', "download_icon_full_path", 'image_full_path', 'single_page_image_full_path', 'right_image_full_path', 'left_image_full_path', 'pdf_full_path'];
 
 
 
