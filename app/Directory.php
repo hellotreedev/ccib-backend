@@ -16,8 +16,7 @@ class Directory extends Model  implements TranslatableContract
     protected $hidden = ['translations'];
 
 
-    public $translatedAttributes = ["page_title","section1_title","section1_description","section2_title"];
+    public $translatedAttributes = ["page_title","section1_title","section1_description","section2_title", "view_all"];
 
-	
     
 }

@@ -27,7 +27,7 @@ class DirectoryController extends Controller
         $single_directory_settings = SingleDirectorySetting::first();
 
         $directory = DirectoryList::where("slug", $request->slug)
-        ->with("member.sector_of_activity", "member.activity")
+        ->with("member.sector_of_activity", "member.activity", "member.socials")
         ->firstOrFail();
 
         $sector_of_activity = SectorOfActivity::orderBy("ht_pos")->orderBy("id")->get();
@@ -39,7 +39,11 @@ class DirectoryController extends Controller
 
     public function searchDirectory(Request $request)
     {
-        $members = ActivityMember::search($request->queryString)
+        $members = ActivityMember::when($request->slug)
+        ->whereHas('directory', function($query) use ($request){
+            $query->where('slug', $request->slug);
+        })
+        ->search($request->queryString)
             ->get();
         return $members;
     }

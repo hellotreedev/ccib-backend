@@ -57,5 +57,6 @@ class ActivityMember extends Model  implements TranslatableContract
         return $this->belongsToMany('App\DirectoryList', 'directory_list_activity_member', 'activity_member_id', 'directory_list_id')->orderBy('directory_list_activity_member.ht_pos');
     }
 
+    public function socials() { return $this->hasMany('App\MemberSocialMedia', 'activity_members_id'); } 
     
 }
