@@ -17,9 +17,16 @@ class SectorOfActivity extends Model  implements TranslatableContract
 
     public $translatedAttributes = ["title"];
 
+<<<<<<< HEAD
     public function members_of_activity()
     {
         return $this->hasMany('App\ActivityMember', 'sector_of_activity_id');
     }
 	
+=======
+	public function members_of_activity()
+    {
+        return $this->hasMany('App\ActivityMember', 'sector_of_activity_id');
+    }
+>>>>>>> 741554b3b49b626c57f818773a21ef404db5fd8b
 }
