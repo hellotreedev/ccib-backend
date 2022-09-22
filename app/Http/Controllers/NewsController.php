@@ -39,7 +39,7 @@ class NewsController extends Controller
             })
             ->when($request->categories, function ($query) use ($request) {
                 $query->whereHas('news_categories', function ($query) use ($request) {
-                    $query->whereIn('news_category_id', $request->categories);
+                    $query->where('news_category_id', $request->categories);
                 });
             })
             ->paginate(9);
