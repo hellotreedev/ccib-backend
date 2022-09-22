@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PublicationsCategory;
 use App\PublicationsList;
 use App\PublicationsSetting;
 use Illuminate\Http\Request;
@@ -12,7 +13,9 @@ class PublicationController extends Controller
     public function index() {
         $publications_settings = PublicationsSetting::first();
 
-         return compact("publications_settings");
+        $categories = PublicationsCategory::get();
+
+         return compact("publications_settings", "categories");
     }
 
     public function publications(Request $request) {
