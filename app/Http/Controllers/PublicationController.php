@@ -24,7 +24,7 @@ class PublicationController extends Controller
         ->with("categories")
         ->when($request->categories, function ($query) use ($request) {
             $query->whereHas('categories', function ($query) use ($request) {
-                $query->whereIn('category_id', $request->categories);
+                $query->where('category_id', $request->categories);
             });
         })
         ->paginate(9);
