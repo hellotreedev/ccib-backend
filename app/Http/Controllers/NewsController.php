@@ -80,6 +80,13 @@ class NewsController extends Controller
             ->with("more_news")
             ->first();
 
+            $arr = [];
+                foreach (json_decode($news->gallery) as $key => $img) {
+                    $arr[] = Storage::url($img);
+                }
+                $news->gallery = $arr;
+            
+
         return $news;
     }
 }
