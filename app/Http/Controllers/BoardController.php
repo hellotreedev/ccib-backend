@@ -23,7 +23,9 @@ class BoardController extends Controller
         ->orderBy("id")
         ->get();
 
-        $departments = Department::orderBy("ht_pos")
+        $departments = Department::
+        with('members')
+        ->orderBy("ht_pos")
         ->orderBy("id")
         ->get();
 

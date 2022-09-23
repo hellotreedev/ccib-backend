@@ -17,5 +17,6 @@ class Department extends Model  implements TranslatableContract
 
     public $translatedAttributes = ["department"];
 
+    public function members() { return $this->hasMany('App\BoardList', 'department_id'); } 
 	
 }
