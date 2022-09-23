@@ -24,6 +24,12 @@ class EventsController extends Controller
         return compact("events_settings");
     }
 
+    public function singleEvent(Request $request) {
+        dd($request->slug);
+        $event = Event::where("slug", $request->slug);
+        return $event;
+    }
+
     public function prevEvents() {
         $prev_events = Event::orderBy("ht_pos")->orderBy("id")->where("date", "<", Carbon::now())->paginate(8);
 
@@ -56,10 +62,7 @@ class EventsController extends Controller
         return compact("upcoming_events");
     }
 
-    public function singleEvent(Request $request) {
-        $event = Event::where("slug", $request->slug);
-        return $event;
-    }
+   
 
     public function contact(Request $request){
         $request->validate([
