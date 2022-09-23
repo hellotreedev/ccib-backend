@@ -44,15 +44,6 @@ class NewsController extends Controller
             })
             ->paginate(9);
 
-        foreach ($news as $key => $value) {
-            if ($value->gallery != "[]") {
-                $arr = [];
-                foreach (json_decode($value->gallery) as $key => $img) {
-                    $arr[] = Storage::url($img);
-                }
-                $value->gallery = $arr;
-            }
-        }
         return $news;
     }
 
