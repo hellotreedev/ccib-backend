@@ -56,6 +56,11 @@ class EventsController extends Controller
         return compact("upcoming_events");
     }
 
+    public function singleEvent(Request $request) {
+        $event = Event::where("slug", $request->slug);
+        return $event;
+    }
+
     public function contact(Request $request){
         $request->validate([
             'first_name' => 'required|regex:/^[a-zA-Z ]+$/',
