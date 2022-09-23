@@ -79,13 +79,6 @@ class NewsController extends Controller
             ->with("news_categories")
             ->with("more_news")
             ->first();
-        // if ($news->gallery != "[]") {
-        //     $arr = [];
-        //     foreach (json_decode($news->gallery) as $key => $img) {
-        //         $arr[] = Storage::url($img);
-        //     }
-        //     $news->gallery = $arr;
-        // }
 
         return $news;
     }
