@@ -15,7 +15,7 @@ class EventsSetting extends Model  implements TranslatableContract
 
     protected $hidden =['translations'];
 
-    public $translatedAttributes = ["page_title","previous_label","upcoming_label","learn_more","register_title","register_subtitle","first_name","last_name","mail","company","nb_of_people","number","description","send_btn","contact","phone_1","phone_2","calendar_text","mail_text","web_text","pin_text"];
+    public $translatedAttributes = ["page_title","previous_label","upcoming_label","learn_more","register_title","register_subtitle","first_name","last_name","mail","company","nb_of_people","number","description","send_btn","contact","phone_1","phone_2","calendar_text","mail_text","web_text","pin_text", "gallery_title"];
 
 	
 }

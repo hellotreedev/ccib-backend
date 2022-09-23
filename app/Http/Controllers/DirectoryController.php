@@ -27,7 +27,7 @@ class DirectoryController extends Controller
         $single_directory_settings = SingleDirectorySetting::first();
 
         $directory = DirectoryList::where("slug", $request->slug)
-        ->with("member.sector_of_activity", "member.activity", "member.socials")
+        ->with("member.sector_of_activity", "member.activity", "member.socials", "member.members_option")
         ->firstOrFail();
 
         $sector_of_activity = SectorOfActivity::orderBy("ht_pos")->orderBy("id")->get();

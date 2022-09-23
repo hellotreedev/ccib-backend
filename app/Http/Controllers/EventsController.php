@@ -19,14 +19,24 @@ class EventsController extends Controller
         $events_settings->mail_icon = Storage::url($events_settings->mail_icon);
         $events_settings->web_icon = Storage::url($events_settings->web_icon);
         $events_settings->pin_icon = Storage::url($events_settings->pin_icon);
+        $events_settings->fb_icon = Storage::url($events_settings->fb_icon);
+        $events_settings->twitter_icon = Storage::url($events_settings->twitter_icon);
+        $events_settings->linkedin_icon = Storage::url($events_settings->linkedin_icon);
+        
 
         
         return compact("events_settings");
     }
 
     public function singleEvent(Request $request) {
-        dd($request->slug);
-        $event = Event::where("slug", $request->slug);
+        $event = Event::where("slug", $request->slug)->first();
+        if ($event->gallery != "") {
+            $arr = [];
+            foreach (json_decode($event->gallery) as $img) {
+                $arr[] = Storage::url($img);
+            }
+            $event->gallery = $arr;
+        }
         return $event;
     }
 
