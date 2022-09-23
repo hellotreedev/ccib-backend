@@ -29,6 +29,7 @@ class NewsController extends Controller
 
 
         return compact("news_settings", "years", "categories");
+        
     }
 
     public function news(Request $request)
