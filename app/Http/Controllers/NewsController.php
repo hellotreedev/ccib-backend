@@ -19,6 +19,9 @@ class NewsController extends Controller
     {
         // $returned = Helper::shout();
         $news_settings = NewsSetting::first();
+        $news_settings->fb_icon = Storage::url($news_settings->fb_icon);
+        $news_settings->twitter_icon = Storage::url($news_settings->twitter_icon);
+        $news_settings->linkedin_icon = Storage::url($news_settings->linkedin_icon);
 
         $years = Year::orderBy('ht_pos')->orderBy('id')->get();
 

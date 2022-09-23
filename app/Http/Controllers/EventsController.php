@@ -19,9 +19,7 @@ class EventsController extends Controller
         $events_settings->mail_icon = Storage::url($events_settings->mail_icon);
         $events_settings->web_icon = Storage::url($events_settings->web_icon);
         $events_settings->pin_icon = Storage::url($events_settings->pin_icon);
-        $events_settings->fb_icon = Storage::url($events_settings->fb_icon);
-        $events_settings->twitter_icon = Storage::url($events_settings->twitter_icon);
-        $events_settings->linkedin_icon = Storage::url($events_settings->linkedin_icon);
+    
         
 
         
