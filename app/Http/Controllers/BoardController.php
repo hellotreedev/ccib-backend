@@ -27,7 +27,7 @@ class BoardController extends Controller
         ->orderBy("id")
         ->get();
 
-        return compact("board_settings", "board_members", "department");
+        return compact("board_settings", "board_members", "departments");
 
     }
 }
