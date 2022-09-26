@@ -3,14 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Circular;
+use App\CircularsCateg;
 use App\CircularsSetting;
 use Illuminate\Http\Request;
 
 class CircularsController extends Controller
 {
     public function index() {
+        
         $circulars_settings = CircularsSetting::first();
-        return compact("circulars_settings");
+
+        $categories = CircularsCateg::orderBy('ht_pos')->orderBy('id')->get();
+        return compact("circulars_settings", "categories");
     }
 
     public function circulars(Request $request) {
