@@ -7,11 +7,13 @@ use App\ContactLocation;
 use App\ContactSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class ContactController extends Controller
 {
     public function index() {
         $contact_settings = ContactSetting::first();
+        $contact_settings->background_image = Storage::url($contact_settings->background_image);
 
         $contact_locations = ContactLocation::orderBy("ht_pos")->orderBy("id")->get();
 
