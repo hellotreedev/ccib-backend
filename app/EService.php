@@ -17,3 +17,4 @@ class EService extends Model  implements TranslatableContract
 
 	public function boxes() { return $this->belongsToMany('App\EservicesBox', 'eservices_box_e_service', 'e_service_id', 'eservices_box_id')->orderBy('eservices_box_e_service.ht_pos'); } 
 }
+
