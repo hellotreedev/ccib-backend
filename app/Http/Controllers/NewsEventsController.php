@@ -6,6 +6,7 @@ use App\Event;
 use App\NewsEventsSetting;
 use App\NewsList;
 use App\PublicationsList;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class NewsEventsController extends Controller
@@ -15,7 +16,9 @@ class NewsEventsController extends Controller
 
         $news = NewsList::orderBy("date", "desc")->get();
 
-        $events = Event::orderBy("date", "desc")->get();
+        $previous_events = Event::orderBy("date", "desc")->where("date", "<=", Carbon::now())->get();
+
+        $upcoming_events = Event::orderBy("date", "desc")->where("date", ">", Carbon::now())->get();
 
         $publications = PublicationsList::orderBy("date", "desc")->get();
 
