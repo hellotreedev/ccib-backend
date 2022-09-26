@@ -21,13 +21,7 @@ use App\Http\Controllers\CircularsController;
 use App\Http\Controllers\NewsEventsController;
 use App\Http\Controllers\MailchimpController;
 use App\Http\Controllers\ContactController;
-
-
-
-
-
-
-
+use App\Http\Controllers\NotFoundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,8 +71,8 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/contact-data', [ContactController::class, 'index']);
     Route::get('/directory', [DirectoryController::class, 'index']);
     Route::get('/directory/{slug}', [DirectoryController::class, 'singleDirectory']);
-    Route::get('/not-found', [DirectoryController::class, 'index']);
-    Route::get('/searchDirectory/{slug}', [NotFoundController::class, 'searchDirectory']);
+    Route::get('/not-found', [NotFoundController::class, 'index']);
+    Route::get('/searchDirectory/{slug}', [DirectoryController::class, 'searchDirectory']);
 
 
     Route::post('/newsletter', [MailchimpController::class, 'index']);
