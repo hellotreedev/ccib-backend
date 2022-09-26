@@ -39,7 +39,7 @@ class EventsController extends Controller
     }
 
     public function prevEvents() {
-        $prev_events = Event::orderBy("ht_pos")->orderBy("id")->where("date", "<", Carbon::now())->paginate(8);
+        $prev_events = Event::orderBy("ht_pos")->orderBy("id")->where("date", "<=", Carbon::now())->paginate(8);
 
         foreach ($prev_events as $key => $value) {
             if ($value->gallery != "") {
