@@ -18,7 +18,7 @@ class ContactSetting extends Model  implements TranslatableContract
 
     public $appends = ['image_full_path', 'phone_icon_full_path', 'fax_icon_full_path', 'mail_icon_full_path', 'call_center_icon_full_path'];
 
-    public $translatedAttributes = ["phone_text","fax_text","ext_text","president_number_text","director_number_text","po_box_text","location_text","president_title","director_title","po_box_title","location_title","contact_details_title","form_title","form_subtitle","fname_placeholder","lname_placeholder","mail_placeholder","number_placeholder","message_placeholder","success_text","error_text","send_btn"];
+    public $translatedAttributes = ["phone_text","fax_text","ext_text","president_number_text","director_number_text","po_box_text","location_text","president_title","director_title","po_box_title","location_title","contact_details_title","form_title","form_subtitle","fname_placeholder","lname_placeholder","mail_placeholder","number_placeholder","message_placeholder","success_text","error_text","send_btn", "title"];
 
 
     public function getImageFullPathAttribute()
