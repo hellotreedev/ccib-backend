@@ -22,6 +22,6 @@ class NewsEventsController extends Controller
 
         $publications = PublicationsList::orderBy("date", "desc")->get();
 
-        return compact('settings', 'news', 'events', 'publications');
+        return compact('settings', 'news', 'previous_events', 'upcoming_events', 'publications');
     }
 }
