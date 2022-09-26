@@ -19,7 +19,7 @@ class PublicationsList extends Model  implements TranslatableContract
 
     public $appends = ['pdf_full_path', 'formatted_date'];
 
-    public $translatedAttributes = ["title", "excerpt", "pdf"];
+    public $translatedAttributes = ["title", "excerpt", "pdf", "download_pdf"];
 
 
     public function getFormattedDateAttribute()
