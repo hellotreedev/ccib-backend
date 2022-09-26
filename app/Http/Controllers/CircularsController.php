@@ -21,7 +21,7 @@ class CircularsController extends Controller
         $circulars = Circular::with('categories')
         ->when($request->categories, function ($query) use ($request) {
             $query->whereHas('categories', function ($query) use ($request) {
-                $query->whereIn('circulars_categ_id', $request->categories);
+                $query->where('circulars_categ_id', $request->categories);
             });
         })
         ->paginate(9);
