@@ -12,8 +12,9 @@ class CircularsController extends Controller
     public function index() {
         
         $circulars_settings = CircularsSetting::first();
-
         $categories = CircularsCateg::orderBy('ht_pos')->orderBy('id')->get();
+
+        
         return compact("circulars_settings", "categories");
     }
 
