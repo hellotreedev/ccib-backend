@@ -67,7 +67,6 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/previous-events', [EventsController::class, 'prevEvents']);
     Route::get('/upcoming-events', [EventsController::class, 'upcomingEvents']);
     Route::get('/events/{slug}', [EventsController::class, 'singleEvent']);
-
     Route::get('/projects-settings', [ProjectsController::class, 'index']);
     Route::get('/ongoing-projects', [ProjectsController::class, 'ongoingProjects']);
     Route::get('/previous-projects', [ProjectsController::class, 'previousProjects']);
