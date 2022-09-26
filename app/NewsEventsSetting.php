@@ -28,7 +28,7 @@ class NewsEventsSetting extends Model  implements TranslatableContract
         }
     }
 
-    public $translatedAttributes = ["page_title","view_pdf","view_all","learn_more","publications_title","news_title","previous_title","upcoming_title","subcribe_to_letter","subscribe_excerpt","enter_email_placeholder","subscribe_btn"];
+    public $translatedAttributes = ["page_title","view_pdf","view_all","learn_more","publications_title","news_title","previous_title","upcoming_title","subcribe_to_letter","subscribe_excerpt","enter_email_placeholder","subscribe_btn", "events_title"];
 
 	
 }
