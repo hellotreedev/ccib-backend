@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\ProjectCategory;
 use App\ProjectsSetting;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,11 @@ class ProjectsController extends Controller
 {
     public function index() {
         $project_settings = ProjectsSetting::first();
-        return $project_settings;
+
+        $categories = ProjectCategory::orderBy("ht_pos")->orderBy("id")->get();
+
+
+        return compact("project_settings", "categories");
     }
 
     public function ongoingProjects() {
