@@ -13,7 +13,7 @@ class SearchSetting extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
-    public $translatedAttributes = ["page_title","title","pages","news","events","members"];
+    public $translatedAttributes = ["page_title","title","pages","news","events","members","publications","search_here","search_btn"];
 
 	
 }
