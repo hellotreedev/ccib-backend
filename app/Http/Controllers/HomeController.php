@@ -19,7 +19,8 @@ class HomeController extends Controller
 
         $home_swiper = HomeNewsEvent::with("news_categories.category_news", "events")->get();
 
-        $services = ServicesList::orderBy("ht_pos")
+        $services = ServicesList::where("home_display", 1)
+            ->orderBy("ht_pos")
             ->orderBy("id")
             ->get();
 
@@ -27,10 +28,11 @@ class HomeController extends Controller
             $service->icon = Storage::url($service->icon);
         }
 
-        $publications_list = PublicationsList::orderBy("date", "desc")
-        ->orderBy("id")
-        ->with("categories")
-        ->get();
+        $publications_list = PublicationsList::where("home_display", 1)
+            ->orderBy("date", "desc")
+            ->orderBy("id")
+            ->with("categories")
+            ->get();
 
         return compact('home_data', 'home_swiper', 'services', 'publications_list');
     }
