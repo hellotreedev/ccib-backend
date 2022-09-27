@@ -75,6 +75,7 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/not-found', [NotFoundController::class, 'index']);
     Route::get('/searchDirectory/{slug}', [DirectoryController::class, 'searchDirectory']);
     Route::get('/search-settings', [SearchController::class, 'index']);
+    Route::get('/search', [SearchController::class, 'search']);
 
 
     Route::post('/newsletter', [MailchimpController::class, 'index']);

@@ -32,7 +32,7 @@ class NewsList extends Model  implements TranslatableContract
         'columns' => [
             'news_list_translations.title' => 10,
             'news_list_translations.excerpt' => 10,
-            'news_list.date' => 5,
+            'news_list.date' => 6,
         ],
         'joins' => [
             'news_list_translations' => ['news_list_translations.news_list_id','news_list.id'],
