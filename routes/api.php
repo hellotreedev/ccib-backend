@@ -22,6 +22,7 @@ use App\Http\Controllers\NewsEventsController;
 use App\Http\Controllers\MailchimpController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NotFoundController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,7 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/directory/{slug}', [DirectoryController::class, 'singleDirectory']);
     Route::get('/not-found', [NotFoundController::class, 'index']);
     Route::get('/searchDirectory/{slug}', [DirectoryController::class, 'searchDirectory']);
+    Route::get('/search-settings', [SearchController::class, 'index']);
 
 
     Route::post('/newsletter', [MailchimpController::class, 'index']);
