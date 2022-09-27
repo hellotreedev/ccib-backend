@@ -17,7 +17,7 @@ class ServicesController extends Controller
 
         $services = ServicesList::orderBy("ht_pos")
             ->orderBy("id")
-            ->with("related_publications", "related_services")
+            ->with("related_publications", "related_services", "e_services")
             ->get();
 
         foreach ($services as $key => $service) {

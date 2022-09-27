@@ -18,7 +18,8 @@ class ServicesList extends Model  implements TranslatableContract
 
     public $appends = ["image_full_path","icon_full_path","gold_icon_full_path", "phone_icon_full_path", "fax_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path", "pdf_full_path"];
     
-    public $translatedAttributes = ["title","excerpt","learn_more","single_page_title","about_title","about_description", "publications_title", "services_title", "pdf", "phone_text", "fax_text", "ext_text", "download_pdf", 'contact_us'];
+        public $translatedAttributes = ["title","excerpt","learn_more","single_page_title","about_title","about_description","publications_title","services_title","contact_us_title","pdf","contact_us","phone_text","fax_text","ext_text","download_pdf","different_section_image","different_page_title","different_section_description","different_perform_transactions","different_transactions_pdf","different_contact_title"];
+
 
     public function getIconFullPathAttribute(){
         {
@@ -120,4 +121,5 @@ class ServicesList extends Model  implements TranslatableContract
     }
 
 	public function related_publications() { return $this->belongsToMany('App\PublicationsList', 'publications_list_services_list', 'services_list_id', 'publications_list_id')->orderBy('publications_list_services_list.ht_pos'); } public function related_services() { return $this->belongsToMany('App\ServicesList', 'services_list_services_list', 'services_list_id', 'other_services_list_id')->orderBy('services_list_services_list.ht_pos'); } 
+	public function e_services() { return $this->belongsToMany('App\EService', 'e_service_services_list', 'services_list_id', 'e_service_id')->orderBy('e_service_services_list.ht_pos'); }
 }
