@@ -9,12 +9,17 @@ use App\Page;
 use App\PublicationsList;
 use App\SearchSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SearchController extends Controller
 {
     public function index()
     {
         $search_settings = SearchSetting::first();
+        $search_settings->phone_icon = Storage::url($search_settings->phone_icon);
+        $search_settings->fax_icon = Storage::url($search_settings->fax_icon);
+        $search_settings->mail = Storage::url($search_settings->mail);
+
 
         return $search_settings;
     }
