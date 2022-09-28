@@ -6,6 +6,7 @@ use App\Activity;
 use App\ActivityMember;
 use App\Directory as MembershipDirectory;
 use App\DirectoryList;
+use App\MembersOption;
 use App\SectorOfActivity;
 use App\SingleDirectorySetting;
 use Illuminate\Http\Request;
@@ -20,7 +21,9 @@ class DirectoryController extends Controller
 
         $directory_list = DirectoryList::orderBy("ht_pos")->orderBy("id")->get();
 
-        return compact("directory_settings", "directory_list");
+        $members_options = MembersOption::orderBy("ht_pos")->orderBy("id")->get();
+
+        return compact("directory_settings", "directory_list", "member_options");
     }
 
     public function singleDirectory(Request $request){
@@ -44,6 +47,7 @@ class DirectoryController extends Controller
             $query->where('slug', $request->slug);
         })
         ->search($request->queryString)
+        ->distinct()
             ->get();
         return $members;
     }

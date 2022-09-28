@@ -29,13 +29,11 @@ class NewsController extends Controller
 
 
         return compact("news_settings", "years", "categories");
-        
     }
 
     public function news(Request $request)
     {
-        $news = NewsList::orderBy("ht_pos")
-            ->orderBy("id")
+        $news = NewsList::orderBy('date', "desc")
             ->with("news_categories")
             ->with("more_news")
             ->when($request->year, function ($query) use ($request) {
@@ -64,6 +62,7 @@ class NewsController extends Controller
         $news = NewsList::search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
+            ->distinct()
             ->paginate(6);
         return $news;
     }
