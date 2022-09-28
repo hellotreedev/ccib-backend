@@ -28,6 +28,11 @@ class PublicationController extends Controller
             });
         })
         ->paginate(9);
+
+        foreach ($publications_list as $key => $value) {
+            $value->pdf_en = Storage::url($value->pdf_en);
+            $value->pdf_ar = Storage::url($value->pdf_ar);
+        }
         
 
         return compact("publications_list");
