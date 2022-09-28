@@ -17,7 +17,7 @@ class HomeController extends Controller
     {
         $home_data = HomeSetting::first();
 
-        $home_swiper = HomeNewsEvent::with("news_categories.category_news", "events")->get();
+        
 
         $services = ServicesList::where("home_display", 1)
             ->orderBy("ht_pos")
@@ -35,5 +35,37 @@ class HomeController extends Controller
             ->get();
 
         return compact('home_data', 'home_swiper', 'services', 'publications_list');
+    }
+
+    public function swiper()
+    {
+        $home = HomeSetting::with("home_news.news_categories")->first();
+
+        $selectedNews = [];
+        $selectedEvents = [];
+        $catArr = [];
+
+
+        foreach ($home->home_news as $key => $el) {
+            $selectedNews[] = $el;
+        }
+
+        foreach ($selectedNews as $key => $value) {
+            foreach ($value->news_categories as $key => $cat) {
+                if (!in_array($cat->id, $catArr)) {
+                    $catArr[]  = $cat->id;
+                }
+            }
+        }
+
+        $categories = NewsCategory::whereIn('id', $catArr)->get();
+
+        $events = HomeSetting::with("home_events")->get();
+
+        foreach ($home->home_events as $key => $el) {
+            $selectedEvents[] = $el;
+        }
+
+        return compact('selectedNews',  'selectedEvents', 'categories');
     }
 }

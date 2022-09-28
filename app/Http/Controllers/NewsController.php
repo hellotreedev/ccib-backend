@@ -51,7 +51,19 @@ class NewsController extends Controller
 
     public function test() {
         $news = NewsList::with("news_categories")->get();
-        return $news;
+
+        $categories = [];
+        $newsArr = [];
+
+        foreach ($news as $key => $el) {
+            $categories = $el->news_categories;
+            $newsArr[]= $el->id;
+         }
+
+         
+
+
+        return compact('news', 'categories', "newsArr");
     }
 
 
