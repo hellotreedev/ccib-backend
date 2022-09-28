@@ -15,7 +15,7 @@ class SearchSetting extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    public $translatedAttributes = ["page_title","title","pages","news","events","members","publications","search_here","search_btn","learn_more","view_pdf"];
+    public $translatedAttributes = ["page_title","title","pages","news","previous_events","upcoming_events","members","publications","search_here","search_btn","learn_more","view_pdf"];
 
 	
 }

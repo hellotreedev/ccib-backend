@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EService;
+use App\Location;
 use App\ServicesList;
 use App\ServicesSetting;
 use Illuminate\Http\Request;
@@ -43,6 +44,9 @@ class ServicesController extends Controller
 
         $service->icon = Storage::url($service->icon);
 
-        return $service;
+        $locations = Location::orderBy("ht_pos")->orderBy("id")->get();
+
+
+        return compact('service', 'locations');
     }
 }

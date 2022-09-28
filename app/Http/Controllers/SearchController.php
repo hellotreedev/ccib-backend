@@ -8,6 +8,7 @@ use App\NewsList;
 use App\Page;
 use App\PublicationsList;
 use App\SearchSetting;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -43,7 +44,15 @@ class SearchController extends Controller
             ->distinct()
             ->get();
 
-        $events = Event::search($request->queryString)
+        $previous_events = Event::where('date', '<', Carbon::now())
+            ->search($request->queryString)
+            ->orderBy("ht_pos")
+            ->orderBy("id")
+            ->distinct()
+            ->get();
+
+        $upcoming_events = Event::where('date', '>=', Carbon::now())
+            ->search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
             ->distinct()
@@ -55,6 +64,6 @@ class SearchController extends Controller
             ->distinct()
             ->get();
 
-        return compact('pages', "news", "publications", "events", "members");
+        return compact('pages', "news", "publications", "previous_events", "upcoming_events", "members");
     }
 }
