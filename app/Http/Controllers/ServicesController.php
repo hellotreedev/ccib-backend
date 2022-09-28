@@ -44,9 +44,6 @@ class ServicesController extends Controller
 
         $service->icon = Storage::url($service->icon);
 
-        $locations = Location::orderBy("ht_pos")->orderBy("id")->get();
-
-
-        return compact('service', 'locations');
+        return compact('service');
     }
 }
