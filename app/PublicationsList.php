@@ -19,7 +19,7 @@ class PublicationsList extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    public $appends = ['pdf_full_path', 'formatted_date'];
+    public $appends = ['pdf_full_path', 'formatted_date', 'pdf_en_full_path', 'pdf_ar_full_path'];
 
         public $translatedAttributes = ["title","excerpt","download_pdf","download_pdf_ar","pdf_en","pdf_ar"];
 
@@ -85,6 +85,26 @@ class PublicationsList extends Model  implements TranslatableContract
         if (isset($this->pdf)) {
             $full_path_pdf = Helper::fullPath($this->pdf);
             return $full_path_pdf;
+        } else {
+            return null;
+        }
+    }
+
+    public function getPdfArFullPathAttribute()
+    {
+        if (isset($this->pdf_ar)) {
+            $full_path_pdf_ar = Helper::fullPath($this->pdf_ar);
+            return $full_path_pdf_ar;
+        } else {
+            return null;
+        }
+    }
+
+    public function getPdfEnFullPathAttribute()
+    {
+        if (isset($this->pdf_en)) {
+            $full_path_pdf_en = Helper::fullPath($this->pdf_en);
+            return $full_path_pdf_en;
         } else {
             return null;
         }
