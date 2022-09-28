@@ -122,4 +122,5 @@ class ServicesList extends Model  implements TranslatableContract
 
 	public function related_publications() { return $this->belongsToMany('App\PublicationsList', 'publications_list_services_list', 'services_list_id', 'publications_list_id')->orderBy('publications_list_services_list.ht_pos'); } public function related_services() { return $this->belongsToMany('App\ServicesList', 'services_list_services_list', 'services_list_id', 'other_services_list_id')->orderBy('services_list_services_list.ht_pos'); } 
 	public function e_services() { return $this->belongsToMany('App\EService', 'e_service_services_list', 'services_list_id', 'e_service_id')->orderBy('e_service_services_list.ht_pos'); }
+	public function locations() { return $this->belongsToMany('App\Location', 'location_services_list', 'services_list_id', 'location_id')->orderBy('location_services_list.ht_pos'); }
 }
