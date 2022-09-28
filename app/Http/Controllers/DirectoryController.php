@@ -23,7 +23,7 @@ class DirectoryController extends Controller
 
         $members_options = MembersOption::orderBy("ht_pos")->orderBy("id")->get();
 
-        return compact("directory_settings", "directory_list", "member_options");
+        return compact("directory_settings", "directory_list", "members_options");
     }
 
     public function singleDirectory(Request $request){
