@@ -34,7 +34,7 @@ class HomeController extends Controller
             ->with("categories")
             ->get();
 
-        return compact('home_data', 'home_swiper', 'services', 'publications_list');
+        return compact('home_data', 'services', 'publications_list');
     }
 
     public function swiper()
