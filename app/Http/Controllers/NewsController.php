@@ -49,6 +49,11 @@ class NewsController extends Controller
         return $news;
     }
 
+    public function test() {
+        $news = NewsList::with("news_categories")->get();
+        return $news;
+    }
+
 
     public function searchNews(Request $request)
     {
