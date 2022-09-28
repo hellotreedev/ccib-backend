@@ -43,6 +43,7 @@ class ServicesController extends Controller
             ->first();
 
         $service->icon = Storage::url($service->icon);
+        $service->different_section_image = Storage::url($service->different_section_image);
 
         return compact('service');
     }
