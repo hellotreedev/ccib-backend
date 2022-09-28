@@ -21,7 +21,8 @@ class PublicationsList extends Model  implements TranslatableContract
 
     public $appends = ['pdf_full_path', 'formatted_date'];
 
-    public $translatedAttributes = ["title", "excerpt", "download_pdf"];
+        public $translatedAttributes = ["title","excerpt","download_pdf","download_pdf_ar","pdf_en","pdf_ar"];
+
 
 
     protected $searchable = [
