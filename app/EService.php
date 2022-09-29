@@ -40,6 +40,6 @@ class EService extends Model  implements TranslatableContract
         }
     }
 
-    public function single_service() { return $this->hasMany('App\EServicesSingle', 'e_services_id'); }
+    public function single_service() { return $this->hasMany('App\EservicesSingle', 'e_services_id'); }
 	
 }
