@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class EServicesController extends Controller
 {
     public function index() {
-        $e_services = EService::orderBy("ht_pos")->orderBy("id")->get();
+        $e_services = EService::orderBy("ht_pos")->orderBy("id")->with('single_service')->get();
         foreach ($e_services as $key => $service) {
             $service->icon = Storage::url($service->icon);
         }

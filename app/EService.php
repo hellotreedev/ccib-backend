@@ -39,5 +39,7 @@ class EService extends Model  implements TranslatableContract
             return null;
         }
     }
+
+    public function single_service() { return $this->hasMany('App\EServicesSingle', 'e_services_id'); }
 	
 }
