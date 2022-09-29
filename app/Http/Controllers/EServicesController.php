@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\EService;
+use App\EservicesSingle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -19,8 +20,7 @@ class EServicesController extends Controller
     }
 
     public function singleEservice(Request $request) {
-        $e_service = EService::where("slug", $request->slug)->with("boxes")->first();
-        $e_service->icon = Storage::url($e_service->icon);
+        $e_service = EservicesSingle::where("slug", $request->slug)->with("boxes")->first();
         
         return compact('e_service');
     }
