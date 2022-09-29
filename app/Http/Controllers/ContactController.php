@@ -8,6 +8,8 @@ use App\ContactSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use stdClass;
+
 
 class ContactController extends Controller
 {
@@ -16,6 +18,23 @@ class ContactController extends Controller
         $contact_settings->background_image = Storage::url($contact_settings->background_image);
 
         $contact_locations = ContactLocation::orderBy("ht_pos")->orderBy("id")->get();
+        
+        $map_coord = new stdClass();
+        
+        
+            
+         foreach ($contact_locations as $key => $value) {
+                if($value->map_coordinates){
+                $coordinates = explode(',', $value->map_coordinates);
+                    
+                $value->lat = $coordinates[0];
+                $value->long = $coordinates[1];
+            
+                }
+                
+            
+        }
+        
 
 
         return compact('contact_settings', 'contact_locations');
