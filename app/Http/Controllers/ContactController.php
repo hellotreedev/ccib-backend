@@ -13,28 +13,25 @@ use stdClass;
 
 class ContactController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $contact_settings = ContactSetting::first();
         $contact_settings->background_image = Storage::url($contact_settings->background_image);
 
         $contact_locations = ContactLocation::orderBy("ht_pos")->orderBy("id")->get();
-        
+
         $map_coord = new stdClass();
-        
-        
-            
-         foreach ($contact_locations as $key => $value) {
-                if($value->map_coordinates){
+
+
+        foreach ($contact_locations as $key => $value) {
+            if ($value->map_coordinates) {
                 $coordinates = explode(',', $value->map_coordinates);
-                    
+
                 $value->lat = $coordinates[0];
                 $value->long = $coordinates[1];
-            
-                }
-                
-            
+            }
         }
-        
+
 
 
         return compact('contact_settings', 'contact_locations');
@@ -42,7 +39,8 @@ class ContactController extends Controller
 
 
 
-    public function contact($locale ,Request $request){
+    public function contact($locale, Request $request)
+    {
         $request->validate([
             'first_name' => 'required|regex:/^[a-zA-Z ]+$/',
             'last_name' => 'required|regex:/^[a-zA-Z ]+$/',
