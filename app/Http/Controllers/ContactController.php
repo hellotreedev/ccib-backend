@@ -23,7 +23,7 @@ class ContactController extends Controller
 
 
 
-    public function contact(Request $request){
+    public function contact($locale ,Request $request){
         $request->validate([
             'first_name' => 'required|regex:/^[a-zA-Z ]+$/',
             'last_name' => 'required|regex:/^[a-zA-Z ]+$/',
