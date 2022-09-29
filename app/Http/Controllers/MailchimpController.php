@@ -16,9 +16,19 @@ class MailchimpController extends Controller
         if (!Newsletter::isSubscribed($request->email)) {
             Newsletter::subscribe($request->email);
         }else if(Newsletter::isSubscribed($request->email)){
-            return "user already subscribed!";
+            if (request('locale') == 'ar'){
+                return "المستخدم مشترك بالفعل!";
+            }else{
+                return "user already subscribed!";
+            }
+            
         }
-        return "user subscribed successfully!";
+
+        if (request('locale') == 'ar'){
+            return "اشترك المستخدم بنجاح!";
+        }else{
+            return "user subscribed successfully!";
+        }
 
     }
 }
