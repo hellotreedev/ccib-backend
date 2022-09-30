@@ -18,7 +18,7 @@ class SectorOfActivity extends Model  implements TranslatableContract
     public $translatedAttributes = ["title"];
 
     
-        public function members_of_activity() { return $this->belongsToMany('App\ActivityMember', 'sector_of_activity_activity_member', 'sector_of_activity_id' , 'activity_member_id')->orderBy('sector_of_activity_activity_member.ht_pos'); }
+    public function members_of_activity() { return $this->belongsToMany('App\ActivityMember', 'sector_of_activity_activity_member', 'sector_of_activity_id' , 'activity_member_id')->orderBy('sector_of_activity_activity_member.ht_pos'); }
 
     
 	

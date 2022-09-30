@@ -4,17 +4,18 @@ namespace App;
 
 use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract; use Astrotomic\Translatable\Translatable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 
 class EService extends Model  implements TranslatableContract
 {
-	use Translatable;
+    use Translatable;
 
     protected $table = 'e_services';
 
     protected $guarded = ['id'];
 
-    public $translatedAttributes = ["title","excerpt","description"];
+    public $translatedAttributes = ["title", "excerpt", "description", "btn_label"];
 
     protected $hidden = ['translations'];
 
@@ -40,6 +41,8 @@ class EService extends Model  implements TranslatableContract
         }
     }
 
-    public function single_service() { return $this->hasMany('App\EservicesSingle', 'e_services_id'); }
-	
+    public function single_service()
+    {
+        return $this->hasMany('App\EservicesSingle', 'e_services_id');
+    }
 }
