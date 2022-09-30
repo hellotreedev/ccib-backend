@@ -39,7 +39,7 @@ class ServicesController extends Controller
     public function singleService(Request $request)
     {
         $service = ServicesList::where("slug", $request->slug)
-            ->with("related_publications", "related_services", "locations", "e_services")
+            ->with("related_publications", "related_services", "locations", "e_services.single_service")
             ->first();
 
         $service->icon = Storage::url($service->icon);
