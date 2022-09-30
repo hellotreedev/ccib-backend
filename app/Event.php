@@ -19,7 +19,7 @@ class Event extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    public $translatedAttributes = ["title","page_title","date_location","description","notes","more_text","button_text","location_text", "pin_text"];
+    public $translatedAttributes = ["title","page_title","date_location","description","notes","more_text","button_text","location_text", "pin_text", "learn_more"];
 
     protected $searchable = [
         'columns' => [
