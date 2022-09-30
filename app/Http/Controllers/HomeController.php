@@ -23,6 +23,7 @@ class HomeController extends Controller
         $home_data->image3 = Storage::url($home_data->image3);
         $home_data->image4 = Storage::url($home_data->image4);
         $home_data->image5 = Storage::url($home_data->image5);
+        $home_data->about_image = Storage::url($home_data->about_image);
         
         $services = ServicesList::where("home_display", 1)
             ->orderBy("ht_pos")
