@@ -16,7 +16,7 @@ class DirectoryList extends Model  implements TranslatableContract
     protected $hidden = ['translations'];
 
 
-    public $translatedAttributes = ["title"];
+    public $translatedAttributes = ["title", "description"];
 
     public function member() { return $this->belongsToMany('App\ActivityMember', 'directory_list_activity_member', 'directory_list_id' , 'activity_member_id')->orderBy('directory_list_activity_member.ht_pos'); }
 	

@@ -93,7 +93,7 @@ class ActivityMember extends Model  implements TranslatableContract
     }
 
 
-    public $translatedAttributes = ["title", "learn_more", "popup_description", "contact", "phone1_text", "phone2_text", "phone3_text", "fax_text", "location_text"];
+    public $translatedAttributes = ["title","description", "learn_more", "popup_description", "contact", "phone1_text", "phone2_text", "phone3_text", "fax_text", "location_text"];
 
     public function sector_of_activity() { return $this->belongsToMany('App\SectorOfActivity', 'sector_of_activity_activity_member', 'activity_member_id', 'sector_of_activity_id')->orderBy('sector_of_activity_activity_member.ht_pos'); }
     public function activity()
