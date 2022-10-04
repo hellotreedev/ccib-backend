@@ -12,6 +12,8 @@ class SeoPage extends Model  implements TranslatableContract
     protected $table = 'seo_pages';
 
     protected $guarded = ['id'];
+    
+    protected $hidden = ['translations'];
 
     public $translatedAttributes = ["title","description"];
 

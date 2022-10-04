@@ -18,7 +18,7 @@ class Project extends Model  implements TranslatableContract
 
     protected $appends = ['image_full_path', 'beneficiary_image_full_path', 'disclaimer_image_1_full_path', 'disclaimer_image_2_full_path', 'pdf_full_path', "phone_icon_full_path", "office_phone_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path",];
 
-    public $translatedAttributes = ["title","subtitle","single_page_title","brief_title","brief_description","partners_title","strategic_title","benef_title","benef_description","objectives_title","objectives_description","action_title","action_description","budget_title","budget_description","activities_title","disclaimer_left","disclaimer_right","related_articles_title","pdf","phone_text", "office_phone_text", "ext_text", "download_pdf_text", "disclaimer_title"];
+    public $translatedAttributes = ["title","subtitle","contact_label","single_page_title","brief_title","brief_description","partners_title","strategic_title","benef_title","benef_description","objectives_title","objectives_description","action_title","action_description","budget_title","budget_description","activities_title","disclaimer_left","disclaimer_right","related_articles_title","pdf","phone_text", "office_phone_text", "ext_text", "download_pdf_text", "disclaimer_title"];
 
 
 

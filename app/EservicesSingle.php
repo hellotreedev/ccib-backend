@@ -18,7 +18,7 @@ class EservicesSingle extends Model  implements TranslatableContract
 
     public $appends = ['btn_pdf_full_path', 'pdf_full_path'];
 
-    public $translatedAttributes = ["title","subtitle","section1_title","section1_excerpt","section1_btn","section2_content","section3_title","section4_content","section5_content","download_btn", "pdf"];
+    public $translatedAttributes = ["title","subtitle","section1_title","section1_excerpt","section1_btn","section2_content","section3_title","section3_subtitle","section4_content","section5_content","download_btn", "pdf"];
 
     public function getBtnPdfFullPathAttribute()
     {
