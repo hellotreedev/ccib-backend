@@ -98,8 +98,10 @@ class EventsController extends Controller
         $contact->events_id = $request->events_id;
         $contact->save();
 
+        $event_name = Event::where('id', $contact->events_id)->first();
 
-        Mail::send('emails/events-email', compact('request', 'admin_email'), function ($message) use ($request, $admin_email) {
+
+        Mail::send('emails/events-email', compact('request', 'admin_email', 'event_name'), function ($message) use ($request, $admin_email) {
             $message->to($admin_email);
         });
     }

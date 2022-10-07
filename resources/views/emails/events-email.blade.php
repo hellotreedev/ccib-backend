@@ -1,6 +1,6 @@
 <h2>Hello Admin,</h2>
 <br>
-You have a new contact request from: {{$request->event}} <br>
+You have a new contact request from: {{$event_name->title}} <br>
 Kindly find below the details:<br>
 <br>
 first name: {{$request->first_name}} <br>
