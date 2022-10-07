@@ -59,6 +59,6 @@ class ActivityMember extends Model  implements TranslatableContract
 	
 	public function members_option() { return $this->belongsTo('App\MembersOption'); }
 
-    public function socials() { return $this->hasMany('App\MemberSocialMedia', 'activity_members_id'); } 
+    public function socials() { return $this->hasMany('App\MemberSocialMedia', 'activity_members_id')->orderBy('ht_pos'); } 
     
 }

@@ -27,5 +27,5 @@ class MemberSocialMedia extends Model
         }
     }
 
-	public function activity_members() { return $this->belongsTo('App\ActivityMember'); } 
+	public function activity_members() { return $this->belongsTo('App\ActivityMember')->orderBy('ht_pos'); } 
 }
