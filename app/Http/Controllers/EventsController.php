@@ -81,7 +81,7 @@ class EventsController extends Controller
             'email' => 'required|email',
             'number' => 'required|numeric',
             'description' => 'required',
-            'event_id'=>'required|numeric'
+            'event_id'=>'numeric'
         ]);
 
         $admin_email = EventsSetting::first();
