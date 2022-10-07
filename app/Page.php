@@ -17,13 +17,14 @@ class Page extends Model  implements TranslatableContract
     
     protected $guarded = ['id'];
     
-    public $translatedAttributes = ["title"];
+    public $translatedAttributes = ["title", "text"];
 
     protected $hidden = ['translations'];
     
     protected $searchable = [
         'columns' => [
             'Pages_translations.title' => 10,
+            'Pages_translations.text' => 8,
         ],
         'joins' => [
             'Pages_translations' => ['Pages_translations.Page_id','Pages.id'],
