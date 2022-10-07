@@ -16,7 +16,7 @@ class ProjectsSetting extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    public $appends = ["phone_icon_full_path", "office_phone_icon_full_path", "ext_icon_full_path", "mail_icon_full_path"];
+    public $appends = ["phone_icon_full_path", "office_phone_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path"];
 
     public $translatedAttributes = ["page_title","ongoing_projects","previous_projects"];
 
@@ -62,5 +62,11 @@ class ProjectsSetting extends Model  implements TranslatableContract
                 return null;
             }
         }
+    }
+
+    public function getDownloadIconFullPathAttribute() {
+        $download_icon_full_path = Helper::fullPath($this->download_icon);
+
+        return $download_icon_full_path;
     }
 }

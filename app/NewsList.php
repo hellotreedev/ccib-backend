@@ -23,7 +23,7 @@ class NewsList extends Model  implements TranslatableContract
 
     public $translatedAttributes = ["title","excerpt","news_title","single_page_pdf","description","share","read_more","left_text","right_text"];
 
-    protected $appends = ['formatted_date', "download_icon_full_path", 'image_full_path', 'single_page_image_full_path', 'right_image_full_path', 'left_image_full_path', 'pdf_full_path', 'gallery_full_path'];
+    protected $appends = ['formatted_date', 'image_full_path', 'single_page_image_full_path', 'right_image_full_path', 'left_image_full_path', 'pdf_full_path', 'gallery_full_path'];
 
 
 
@@ -105,11 +105,6 @@ class NewsList extends Model  implements TranslatableContract
     
     }
 
-    public function getDownloadIconFullPathAttribute() {
-        $download_icon_full_path = Helper::fullPath($this->download_icon);
-
-        return $download_icon_full_path;
-    }
 
     public function getImageFullPathAttribute() {
         $full_path_image = Helper::fullPath($this->image);
