@@ -13,6 +13,7 @@ class RennovationController extends Controller
     public function index() {
         $rennovation_settings = RennovationSponsorsSetting::first();
         $rennovation_settings->image = Storage::url($rennovation_settings->image);
+        $rennovation_settings->icon = Storage::url($rennovation_settings->icon);
 
         $sponsor_levels = SponsorLevel::orderBy("ht_pos")->orderBy("id")->get();
 
@@ -20,9 +21,6 @@ class RennovationController extends Controller
         ->orderBy("id")
         ->with("sponsor_level")
         ->get();
-        foreach ($rennovation_sponsors as $key => $sponsor) {
-            $sponsor->icon = Storage::url($sponsor->icon);
-        }
 
         return compact("rennovation_settings", "sponsor_levels", "rennovation_sponsors");
     }
