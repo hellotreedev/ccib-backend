@@ -97,6 +97,7 @@ class EventsController extends Controller
         $contact->description = $request->description;
         $contact->events = $request->events;
         $contact->save();
+        
 
         Mail::send('emails/events-email', compact('request', 'admin_email'), function ($message) use ($request, $admin_email) {
             $message->to($admin_email);
