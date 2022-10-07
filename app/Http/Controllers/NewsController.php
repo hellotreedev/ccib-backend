@@ -44,7 +44,7 @@ class NewsController extends Controller
                     $query->where('news_category_id', $request->categories);
                 });
             })
-            ->paginate(9);
+            ->paginate(10);
 
         return $news;
     }
