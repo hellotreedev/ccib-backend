@@ -19,7 +19,7 @@ class ServicesList extends Model  implements TranslatableContract
 
     public $appends = ["image_full_path", "icon_full_path", "gold_icon_full_path", "pdf_full_path"];
 
-    public $translatedAttributes = ["title", "excerpt", "learn_more", "single_page_title", "about_title", "about_description", "publications_title", "services_title", "contact_us_title", "pdf", "contact_us", "phone_text", "fax_text", "ext_text", "download_pdf", "different_section_image", "different_page_title", "different_section_description", "different_perform_transactions", "different_transactions_pdf", "different_contact_title", "different_pdf_btn"];
+    public $translatedAttributes = ["title", "excerpt", "learn_more", "single_page_title", "about_title", "about_description", "publications_title", "services_title", "contact_us_title", "pdf", "contact_us", "phone_text", "fax_text", "ext_text", "download_pdf", "different_section_image", "different_section_description", "different_perform_transactions", "different_transactions_pdf", "different_contact_title", "different_pdf_btn"];
 
 
     public function getIconFullPathAttribute()
