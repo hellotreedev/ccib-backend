@@ -26,6 +26,7 @@ class PublicationsList extends Model  implements TranslatableContract
 
 
     protected $searchable = [
+        'groupBy' => ['publications_list.id'],
         'columns' => [
             'publications_list_translations.title' => 10,
             'publications_list_translations.excerpt' => 8,

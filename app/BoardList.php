@@ -19,6 +19,7 @@ class BoardList extends Model  implements TranslatableContract
     protected $hidden = ['translations'];
 
     protected $searchable = [
+        'groupBy' => ['board_list.id'],
         'columns' => [
             'board_list_translations.name' => 10,
             'board_list_translations.position' => 6,

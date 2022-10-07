@@ -29,39 +29,33 @@ class SearchController extends Controller
     {
         $pages = Page::search($request->queryString)
             ->orderBy("id")
-            ->distinct()
             ->get();
 
         $news = NewsList::search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->distinct()
             ->get();
 
         $publications = PublicationsList::search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->distinct()
             ->get();
 
         $previous_events = Event::where('date', '<', Carbon::now())
             ->search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->distinct()
             ->get();
 
         $upcoming_events = Event::where('date', '>=', Carbon::now())
             ->search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->distinct()
             ->get();
 
         $members = BoardList::search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->distinct()
             ->get();
 
         return compact('pages', "news", "publications", "previous_events", "upcoming_events", "members");

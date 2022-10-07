@@ -25,17 +25,15 @@ class NewsList extends Model  implements TranslatableContract
 
     protected $appends = ['formatted_date', 'image_full_path', 'single_page_image_full_path', 'right_image_full_path', 'left_image_full_path', 'pdf_full_path', 'gallery_full_path'];
 
-
-
-
     protected $searchable = [
+        'groupBy' => ['news_list.id'],
         'columns' => [
             'news_list_translations.title' => 10,
             'news_list_translations.excerpt' => 10,
             'news_list.date' => 6,
         ],
         'joins' => [
-            'news_list_translations' => ['news_list_translations.news_list_id','news_list.id'],
+            'news_list_translations' => ['news_list.id', 'news_list_translations.news_list_id'],
         ],
     ];
     

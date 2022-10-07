@@ -22,6 +22,7 @@ class Event extends Model  implements TranslatableContract
     public $translatedAttributes = ["title","page_title","date_location","description","notes","more_text","button_text","location_text", "pin_text", "learn_more"];
 
     protected $searchable = [
+        'groupBy' => ['events.id'],
         'columns' => [
             'events_translations.title' => 10,
             'events.date' => 5,

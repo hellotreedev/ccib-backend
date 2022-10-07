@@ -22,9 +22,10 @@ class Page extends Model  implements TranslatableContract
     protected $hidden = ['translations'];
     
     protected $searchable = [
+        'groupBy' => ['Pages.id'],
         'columns' => [
             'Pages_translations.title' => 10,
-            'Pages_translations.text' => 8,
+            'Pages_translations.text' => 10,
         ],
         'joins' => [
             'Pages_translations' => ['Pages_translations.Page_id','Pages.id'],
