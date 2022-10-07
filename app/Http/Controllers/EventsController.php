@@ -81,7 +81,7 @@ class EventsController extends Controller
             'email' => 'required|email',
             'number' => 'required|numeric',
             'description' => 'required',
-            'event_id'=>'numeric'
+            'events_id'=>'numeric'
         ]);
 
         $admin_email = EventsSetting::first();
@@ -95,7 +95,7 @@ class EventsController extends Controller
         $contact->email = $request->email;
         $contact->number = $request->number;
         $contact->description = $request->description;
-        $contact->event_id = $request->event_id;
+        $contact->events_id = $request->events_id;
         $contact->save();
 
         Mail::send('emails/events-email', compact('request', 'admin_email'), function ($message) use ($request, $admin_email) {
