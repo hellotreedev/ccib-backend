@@ -13,8 +13,6 @@ class ContactLocation extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
-    protected $hidden = ['translations'];
-
     public $translatedAttributes = ["title","subtitle","description","phone_text"];
 
 	

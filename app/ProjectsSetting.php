@@ -5,16 +5,30 @@ namespace App;
 use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract; use Astrotomic\Translatable\Translatable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class ProjectsSetting extends Model  implements TranslatableContract
 {
 	use Translatable;
+    use SearchableTrait;
 
     protected $table = 'projects_settings';
 
     protected $guarded = ['id'];
 
     protected $hidden = ['translations'];
+
+    protected $searchable = [
+        'groupBy' => ['projects_settings.id'],
+        'columns' => [
+            'projects_settings_translations.page_title' => 10,
+            'projects_settings_translations.ongoing_projects' => 10,
+            'projects_settings_translations.previous_projects' => 10,
+        ],
+        'joins' => [
+            'projects_settings_translations' => ['projects_settings_translations.projects_setting_id','projects_settings.id'],
+        ],
+    ];
 
     public $appends = ["phone_icon_full_path", "office_phone_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path"];
 
@@ -69,4 +83,7 @@ class ProjectsSetting extends Model  implements TranslatableContract
 
         return $download_icon_full_path;
     }
+	
+		public function pages() { return $this->belongsTo('App\Page'); } 
+
 }

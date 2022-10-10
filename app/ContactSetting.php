@@ -87,7 +87,8 @@ class ContactSetting extends Model  implements TranslatableContract
         }
     }
 	
-		public function Pages() { return $this->belongsTo('App\Page'); } 
+		public function pages() { return $this->belongsTo('App\Page'); } 
+ 
 
 	
 }

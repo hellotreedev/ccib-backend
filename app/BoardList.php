@@ -31,5 +31,6 @@ class BoardList extends Model  implements TranslatableContract
 
     public $translatedAttributes = ["name","position","excerpt","phone_text","fax_text"];
 
-	public function department() { return $this->belongsTo('App\Department'); } 
+		public function department() { return $this->belongsTo('App\Department'); } public function pages() { return $this->belongsTo('App\Page'); } 
+
 }

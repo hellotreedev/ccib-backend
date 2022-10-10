@@ -5,14 +5,27 @@ namespace App;
 use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract; use Astrotomic\Translatable\Translatable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class ServicesSetting extends Model  implements TranslatableContract
 {
+    use SearchableTrait;
 	use Translatable;
 
     protected $table = 'services_settings';
 
     protected $guarded = ['id'];
+
+    protected $searchable = [
+        'groupBy' => ['services_settings.id'],
+        'columns' => [
+            'services_settings_translations.page_title' => 10,
+            'services_settings_translations.e_services_title' => 10,
+        ],
+        'joins' => [
+            'services_settings_translations' => ['services_settings_translations.services_setting_id','services_settings.id'],
+        ],
+    ];
 
     protected $hidden = ['translations'];
 
@@ -74,4 +87,7 @@ class ServicesSetting extends Model  implements TranslatableContract
             }
         }
     }
+	
+		public function pages() { return $this->belongsTo('App\Page'); } 
+
 }

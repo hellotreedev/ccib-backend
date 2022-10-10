@@ -9,7 +9,7 @@ class PageTranslation extends Model
 {
 	
 
-    protected $table = 'Pages_translations';
+    protected $table = 'pages_translations';
 
     protected $guarded = ['id'];
 

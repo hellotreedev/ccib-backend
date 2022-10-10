@@ -5,16 +5,31 @@ namespace App;
 use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract; use Astrotomic\Translatable\Translatable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Directory extends Model  implements TranslatableContract
 {
 	use Translatable;
+    use SearchableTrait;
 
     protected $table = 'directory';
 
     protected $guarded = ['id'];
 
     protected $hidden = ['translations'];
+
+    protected $searchable = [
+        'groupBy' => ['directory.id'],
+        'columns' => [
+            'directory_translations.page_title' => 10,
+            'directory_translations.section1_title' => 10,
+            'directory_translations.section1_description' => 10,
+            'directory_translations.section2_title' => 10,
+        ],
+        'joins' => [
+            'directory_translations' => ['directory_translations.directory_id','directory.id'],
+        ],
+    ];
 
     public $appends = ['phone_icon_full_path', 'fax_icon_full_path', 'mail_icon_full_path', 'web_icon_full_path', 'loc_icon_full_path'];
 
@@ -70,6 +85,7 @@ class Directory extends Model  implements TranslatableContract
         }
     }
 
+	public function pages() { return $this->belongsTo('App\Page'); } 
 
 
     

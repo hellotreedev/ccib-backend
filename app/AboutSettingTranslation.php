@@ -13,8 +13,6 @@ class AboutSettingTranslation extends Model
 
     protected $guarded = ['id'];
 
-
-
     
 
 	

@@ -5,10 +5,12 @@ namespace App;
 use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Nicolaslopezj\Searchable\SearchableTrait;
 use Astrotomic\Translatable\Translatable;
 
 class ServicesList extends Model  implements TranslatableContract
 {
+    use SearchableTrait;
     use Translatable;
 
     protected $table = 'services_list';
@@ -16,6 +18,26 @@ class ServicesList extends Model  implements TranslatableContract
     protected $guarded = ['id'];
 
     protected $hidden = ['translations'];
+
+    protected $searchable = [
+        'groupBy' => ['services_list.id'],
+        'columns' => [
+            'services_list_translations.title' => 10,
+            'services_list_translations.excerpt' => 10,
+            'services_list_translations.single_page_title' => 10,
+            'services_list_translations.about_title' => 10,
+            'services_list_translations.about_description' => 10,
+            'services_list_translations.publications_title' => 10,
+            'services_list_translations.services_title' => 10,
+            'services_list_translations.contact_us' => 10,
+            'services_list_translations.different_section_description' => 10,
+            'services_list_translations.different_perform_transactions' => 10,
+            'services_list_translations.different_contact_title' => 10,
+        ],
+        'joins' => [
+            'services_list_translations' => ['services_list_translations.services_list_id','services_list.id'],
+        ],
+    ];
 
     public $appends = ["image_full_path", "icon_full_path", "gold_icon_full_path", "pdf_full_path"];
 
@@ -84,4 +106,5 @@ class ServicesList extends Model  implements TranslatableContract
     {
         return $this->belongsToMany('App\Location', 'location_services_list', 'services_list_id', 'location_id')->orderBy('location_services_list.ht_pos');
     }
+	public function pages() { return $this->belongsTo('App\Page'); }
 }
