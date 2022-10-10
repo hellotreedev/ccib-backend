@@ -15,7 +15,7 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $contact_settings = ContactSetting::first();
+        $contact_settings = ContactSetting::with('Pages')->first();
         $contact_settings->background_image = Storage::url($contact_settings->background_image);
 
         $contact_locations = ContactLocation::orderBy("ht_pos")->orderBy("id")->get();

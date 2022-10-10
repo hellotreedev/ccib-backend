@@ -58,10 +58,9 @@ class SearchController extends Controller
         $contact = ContactSetting::search($request->queryString)
             ->first();
 
-            $pages = Page::search($request->queryString)
-            ->when($contact, function($query){
-                $query->where('slug', '/contact');
-            })
+        
+        
+        $pages = Page::search($request->queryString)
             ->orderBy("id")
             ->get();
 
