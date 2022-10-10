@@ -60,8 +60,10 @@ class SearchController extends Controller
             ->get();
 
         $contact = ContactSetting::search($request->queryString)
-        ->get();
+            ->first();
 
-        return compact('pages', "news", "publications", "previous_events", "upcoming_events", "members","contact");
+
+
+        return compact('pages', "news", "publications", "previous_events", "upcoming_events", "members", "contact");
     }
 }
