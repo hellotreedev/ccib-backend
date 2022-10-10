@@ -28,10 +28,6 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $pages = Page::search($request->queryString)
-            ->orderBy("id")
-            ->get();
-
         $news = NewsList::search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
@@ -61,6 +57,13 @@ class SearchController extends Controller
 
         $contact = ContactSetting::search($request->queryString)
             ->first();
+
+            $pages = Page::search($request->queryString)
+            ->when($contact, function($query){
+                $query->where('slug', '/contact-us');
+            })
+            ->orderBy("id")
+            ->get();
 
 
 
