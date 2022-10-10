@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\BoardList;
+use App\ContactSetting;
 use App\Event;
 use App\NewsList;
 use App\Page;
@@ -58,6 +59,9 @@ class SearchController extends Controller
             ->orderBy("id")
             ->get();
 
-        return compact('pages', "news", "publications", "previous_events", "upcoming_events", "members");
+        $contact = ContactSetting::search($request->queryString)
+        ->get();
+
+        return compact('pages', "news", "publications", "previous_events", "upcoming_events", "members","contact");
     }
 }

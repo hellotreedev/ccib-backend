@@ -5,9 +5,11 @@ namespace App;
 use App\Helpers\Helper;
 use Illuminate\Database\Eloquent\Model;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract; use Astrotomic\Translatable\Translatable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class ContactSetting extends Model  implements TranslatableContract
 {
+    use SearchableTrait;
 	use Translatable;
 
     protected $table = 'contact_settings';
@@ -20,6 +22,20 @@ class ContactSetting extends Model  implements TranslatableContract
 
     public $translatedAttributes = ["phone_text","fax_text","ext_text","president_number_text","director_number_text","po_box_text","location_text","president_title","director_title","po_box_title","location_title","contact_details_title","form_title","form_subtitle","fname_placeholder","lname_placeholder","mail_placeholder","number_placeholder","message_placeholder","success_text","error_text","send_btn", "title"];
 
+    protected $searchable = [
+        'columns' => [
+            'contact_settings_translations.title' => 10,
+            'contact_settings_translations.contact_details_title' => 10,
+            'contact_settings_translations.president_title' => 10,
+            'contact_settings_translations.director_title' => 10,
+            'contact_settings_translations.po_box_title' => 10,
+            'contact_settings_translations.location_title' => 10,
+            'contact_settings_translations.contact_details_title' => 10,
+        ],
+        'joins' => [
+            'contact_settings_translations' => ['contact_settings_translations.contact_settings_id','contact_settings.id'],
+        ],
+    ];
 
     public function getImageFullPathAttribute()
     {
