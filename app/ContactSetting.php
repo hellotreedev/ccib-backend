@@ -33,7 +33,7 @@ class ContactSetting extends Model  implements TranslatableContract
             'contact_settings_translations.contact_details_title' => 10,
         ],
         'joins' => [
-            'contact_settings_translations' => ['contact_settings_translations.contact_settings_id','contact_settings.id'],
+            'contact_settings_translations' => ['contact_settings_translations.contact_setting_id','contact_settings.id'],
         ],
     ];
 
