@@ -97,6 +97,7 @@ class SearchController extends Controller
         $directory_list = DirectoryList::with('pages')->search($request->queryString)->get()->toArray();
 
 
+        
 
 
 
