@@ -60,7 +60,7 @@ class SearchController extends Controller
 
             $pages = Page::search($request->queryString)
             ->when($contact, function($query){
-                $query->where('slug', '/contact-us');
+                $query->where('slug', '/contact');
             })
             ->orderBy("id")
             ->get();
