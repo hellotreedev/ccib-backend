@@ -9,7 +9,7 @@ class PublicationsCategory extends Model  implements TranslatableContract
 {
 	use Translatable;
 
-    protected $table = 'publications_categories';
+    protected $table = 'category_publications_list';
 
     protected $guarded = ['id'];
 
