@@ -7,6 +7,7 @@ use App\PublicationsCategory;
 use App\PublicationsList;
 use App\PublicationsListTranslation;
 use Carbon\Carbon;
+use File;
 use Hellotreedigital\Cms\Controllers\CmsPageController;
 use Hellotreedigital\Cms\Models\Language;
 use Illuminate\Http\Request;
@@ -28,8 +29,14 @@ class UploadPublicationsCSVCmsController extends Controller
 
     public function store(Request $request)
     {
+
+
+
+
         $request->validate([
             'csv_file' => 'required|file|mimes:csv,txt',
+            'pdfs' => 'required|file|mimes:zip'
+
         ]);
 
         $path = $request->file('csv_file')->getRealPath();
@@ -80,7 +87,7 @@ class UploadPublicationsCSVCmsController extends Controller
                     'en' => $pub[12],
                     'ar' => $pub[14]
                 ];
-                
+
 
                 if ($pub[5] == "") {
                     throw ValidationException::withMessages(['date empty' => "the date field should not be empty !"]);
@@ -121,11 +128,11 @@ class UploadPublicationsCSVCmsController extends Controller
                     $publicationTranslation->excerpt = $except[$lang->slug];
                     $publicationTranslation->download_pdf = $download_pdf[$lang->slug];
                     $publicationTranslation->ar_download_pdf = $ar_download_pdf[$lang->slug];
-                    if($pdf_en[$lang->slug]){
-                        $publicationTranslation->pdf_en ='publications-list/'.$pdf_en[$lang->slug];
+                    if ($pdf_en[$lang->slug]) {
+                        $publicationTranslation->pdf_en = 'publications-list/' . $pdf_en[$lang->slug];
                     }
-                    if($ar_pdf[$lang->slug]){
-                        $publicationTranslation->ar_pdf ='publications-list/'.$ar_pdf[$lang->slug];
+                    if ($ar_pdf[$lang->slug]) {
+                        $publicationTranslation->ar_pdf = 'publications-list/' . $ar_pdf[$lang->slug];
                     }
 
                     $publicationTranslation->save();
@@ -138,7 +145,13 @@ class UploadPublicationsCSVCmsController extends Controller
                     for ($i = 0; $i < $zip->numFiles; $i++) {
                         $filename = $zip->getNameIndex($i); //get pdf name
                         $fileinfo = pathinfo($filename); //file info in array form
-                        $target = Storage::path('publications-list/');
+
+                        $random = Str::uuid();
+                        if (!Storage::exists('/publications-list/' . $random)) {
+                            Storage::makeDirectory('/publications-list/' . $random, 0775, true); //creates directory
+                        }
+                        $target = Storage::path('/publications-list/' . $random . '/');
+
                         copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
                     }
                     $zip->close();

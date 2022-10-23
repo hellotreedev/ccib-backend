@@ -2,7 +2,7 @@
 
 @section('breadcrumb')
     <ul class="breadcrumbs list-inline font-weight-bold text-uppercase m-0">
-        <li>Upload Publications CSV</li>
+        <li>Upload News CSV</li>
     </ul>
 @endsection
 
@@ -19,7 +19,7 @@
                         </div>
                     @endif
                     <form method="post"
-                        action="{{ url(config('hellotree.cms_route_prefix') . '/upload-publications-csv' . '/upload-publications') }}"
+                        action="{{ url(config('hellotree.cms_route_prefix') . '/upload-news-csv' . '/upload-news') }}"
                         enctype="multipart/form-data">
                         @csrf
                         <div class="form-group mb-3">
@@ -27,7 +27,11 @@
                             <input type="file" class="form-control" name="csv_file">
                         </div>
                         <div class="form-group mb-3">
-                            <label>PDFs</label>
+                            <label>images</label>
+                            <input type="file" class="form-control" name="images">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>pdfs</label>
                             <input type="file" class="form-control" name="pdfs">
                         </div>
                         <button class="btn btn-primary" type="submit">Submit</button>
