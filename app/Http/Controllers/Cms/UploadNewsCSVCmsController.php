@@ -97,19 +97,17 @@ class UploadNewsCSVCmsController extends Controller
                     }
                 }
 
-                if ($singleNews[3] == "") {
-                    throw ValidationException::withMessages(['more news empty' => "the more news field should not be empty !"]);
-                } else {
+                if ($singleNews[3] !== "") {
                     $more_news = $singleNews[3];
                     $more_news = explode(',',  $more_news);
-                }
-
-                foreach ($more_news as $key => $more) {
-                    $valid_news = NewsList::where("id", $more)->first();
-                    if ($valid_news == null) {
-                        throw ValidationException::withMessages(['invalid news ID' => "the news ID " . $more . " does not exist"]);
+                    foreach ($more_news as $key => $more) {
+                        $valid_news = NewsList::where("id", $more)->first();
+                        if ($valid_news == null) {
+                            throw ValidationException::withMessages(['invalid news ID' => "the news ID " . $more . " does not exist"]);
+                        }
                     }
                 }
+
 
                 if ($singleNews[4] == "" || $singleNews[5] == "") {
                     throw ValidationException::withMessages(['Title empty' => "the title field cannot be empty"]);
