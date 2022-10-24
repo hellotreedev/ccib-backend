@@ -194,9 +194,9 @@ class UploadNewsCSVCmsController extends Controller
                 $news->save();
                 $news->news_categories()->sync($news_categories);
 
-                if($more_news){
-                    $news->more_news()->sync($more_news);
-                }
+                // if($more_news){
+                //     $news->more_news()->sync($more_news);
+                // }
 
                 if ($singleNews[25]) {
                     $gallery = $singleNews[25];
