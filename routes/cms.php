@@ -26,6 +26,9 @@ Route::prefix(config('hellotree.cms_route_prefix'))->middleware(['admin'])->grou
     
     Route::get('/upload-news-csv', '\App\Http\Controllers\Cms\UploadNewsCSVCmsController@index');
     Route::post('/upload-news-csv/upload-news', '\App\Http\Controllers\Cms\UploadNewsCSVCmsController@store');
+
+    Route::get('/upload-activity-csv', '\App\Http\Controllers\Cms\UploadActivityCSVCmsController@index');
+    Route::post('/upload-activity-csv/upload-activity', '\App\Http\Controllers\Cms\UploadActivityCSVCmsController@store');
 	/* End admin route group */
 
 });
