@@ -64,17 +64,7 @@ class UploadNewsCSVCmsController extends Controller
                     $single_page_image = $singleNews[20];
                 }
 
-                if ($singleNews[21] == "") {
-                    throw ValidationException::withMessages(['right image empty' => "the right image field should not be empty !"]);
-                } else {
-                    $right_image = $singleNews[21];
-                }
-
-                if ($singleNews[22] == "") {
-                    throw ValidationException::withMessages(['left image empty' => "the left image field should not be empty !"]);
-                } else {
                     $left_image = $singleNews[22];
-                }
 
                 if ($singleNews[1] == "") {
                     throw ValidationException::withMessages(['Date empty' => "the date field should not be empty !"]);
