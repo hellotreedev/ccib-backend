@@ -70,6 +70,7 @@ Route::middleware('locale')->prefix('{locale}')->group(function () {
     Route::get('/circulars', [CircularsController::class, 'circulars']);
     Route::get('/news-events-settings', [NewsEventsController::class, 'index']);
     Route::get('/contact-data', [ContactController::class, 'index']);
+    
     Route::get('/directory', [DirectoryController::class, 'index']);
     Route::get('/directory/{slug}', [DirectoryController::class, 'singleDirectory']);
     Route::get('/not-found', [NotFoundController::class, 'index']);
