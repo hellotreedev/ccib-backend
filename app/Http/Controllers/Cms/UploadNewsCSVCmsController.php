@@ -66,6 +66,7 @@ class UploadNewsCSVCmsController extends Controller
                 
                 
 
+<<<<<<< HEAD
                 
                     $right_image = $singleNews[21];
                 
@@ -77,6 +78,9 @@ class UploadNewsCSVCmsController extends Controller
                     // dd(Storage::path('/news-list/' . $single_page_image));
                 
                 
+=======
+                    $left_image = $singleNews[22];
+>>>>>>> ced134dc7e3c8d68d98c6a909f701f1497de816c
 
                 if ($singleNews[1] == "") {
                     throw ValidationException::withMessages(['Date empty' => "the date field should not be empty !"]);
