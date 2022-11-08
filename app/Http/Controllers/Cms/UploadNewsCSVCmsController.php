@@ -37,7 +37,7 @@ class UploadNewsCSVCmsController extends Controller
 
         $request->validate([
             'csv_file' => 'required|file|mimes:csv,txt',
-            'images' => 'required|file|mimes:zip',
+            // 'images' => 'required|file|mimes:zip',
         ]);
 
         $path = $request->file('csv_file')->getRealPath();
@@ -63,18 +63,20 @@ class UploadNewsCSVCmsController extends Controller
                 } else {
                     $single_page_image = $singleNews[20];
                 }
+                
+                
 
-                if ($singleNews[21] == "") {
-                    throw ValidationException::withMessages(['right image empty' => "the right image field should not be empty !"]);
-                } else {
+                
                     $right_image = $singleNews[21];
-                }
+                
 
-                if ($singleNews[22] == "") {
-                    throw ValidationException::withMessages(['left image empty' => "the left image field should not be empty !"]);
-                } else {
+                
                     $left_image = $singleNews[22];
-                }
+                    
+                    
+                    // dd(Storage::path('/news-list/' . $single_page_image));
+                
+                
 
                 if ($singleNews[1] == "") {
                     throw ValidationException::withMessages(['Date empty' => "the date field should not be empty !"]);
@@ -154,32 +156,26 @@ class UploadNewsCSVCmsController extends Controller
                     ];
                 }
 
-                if ($singleNews[14] == "" || $singleNews[15] == "") {
-                    throw ValidationException::withMessages(['read more empty' => "the read more field cannot be empty"]);
-                } else {
+               
                     $read_more = [
                         'en' => $singleNews[14],
                         'ar' => $singleNews[15],
                     ];
-                }
+                
 
-                if ($singleNews[16] == "" || $singleNews[17] == "") {
-                    throw ValidationException::withMessages(['Right text empty' => "the right text field cannot be empty"]);
-                } else {
+              
                     $right_text = [
                         'en' => $singleNews[16],
                         'ar' => $singleNews[17],
                     ];
-                }
+                
 
-                if ($singleNews[18] == "" || $singleNews[19] == "") {
-                    throw ValidationException::withMessages(['Left text empty' => "the left text field cannot be empty"]);
-                } else {
+                
                     $left_text = [
                         'en' => $singleNews[18],
                         'ar' => $singleNews[19],
                     ];
-                }
+                
 
                 $pdf = [
                     'en' => $singleNews[23],
@@ -189,6 +185,10 @@ class UploadNewsCSVCmsController extends Controller
 
                 $news = new NewsList();
                 $news->date = $date;
+                $news->image = '/news-list/' . $image;
+                if($single_page_image ){
+                    $news->single_page_image = '/news-list/' . $single_page_image;
+                }
 
 
                 $news->save();
@@ -203,26 +203,32 @@ class UploadNewsCSVCmsController extends Controller
                     $gallery = explode(',', $gallery);
                     $arr = [];
                     foreach ($gallery as $img) {
-                        $random = Str::uuid();
+                        
                         $zip = new \ZipArchive;
+                        if(!is_null($request->file('images'))){
                         $zipFile = $request->file('images');
                         if ($zip->open($zipFile) === true) {
                             for ($i = 0; $i < $zip->numFiles; $i++) {
                                 $filename = $zip->getNameIndex($i); //get pdf name
                                 $fileinfo = pathinfo($filename); //file info in array form
                                 $random = Str::uuid();
-                                if (!Storage::exists('/news-list/' . $random)) {
+                                if (!Storage::exists('/news-list/')) {
 
-                                    Storage::makeDirectory('/news-list/' . $random); //creates directory
+                                    Storage::makeDirectory('/news-list/'); //creates directory
 
                                 }
-                                $target = Storage::path('/news-list/' . $random . '/');
+                                $target = Storage::path('/news-list/');
                                 if ($filename == $img) {
-                                    $arr[] = 'news-list/' . $random . '/' . $img;
+                                    $arr[] = 'news-list/' . $img;
                                 }
                                 copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
                             }
                         }
+                        }
+                    $target = Storage::path('/news-list/');
+                        if ($filename == $img) {
+                            $arr[] = 'news-list/' . $img;
+                         }
                     }
                     $gallery = json_encode($arr);
                     $news->gallery = $gallery;
@@ -233,7 +239,7 @@ class UploadNewsCSVCmsController extends Controller
                 $language = Language::get();
 
                 $zip_pdf = new \ZipArchive;
-                $zipFile_pdf = $request->file('pdfs');
+                
 
                 foreach ($language as $key => $lang) {
                     $newsTranslation = new NewsListTranslation();
@@ -247,31 +253,36 @@ class UploadNewsCSVCmsController extends Controller
                     $newsTranslation->read_more = $read_more[$lang->slug];
                     $newsTranslation->right_text = $right_text[$lang->slug];
                     $newsTranslation->left_text = $left_text[$lang->slug];
-
+                if(!is_null($request->file('pdfs'))){
+                    $zipFile_pdf = $request->file('pdfs');
                     if ($zip_pdf->open($zipFile_pdf) === true) {
                         for ($i = 0; $i < $zip_pdf->numFiles; $i++) {
                             $filename = $zip_pdf->getNameIndex($i);
                             if ($filename == $pdf[$lang->slug]) {
                                 $fileinfo = pathinfo($filename); //file info in array form
 
-                                $random = Str::uuid();
-                                if (!Storage::exists('/news-list/' . $random)) {
+                                
+                                if (!Storage::exists('/news-list/')) {
 
-                                    Storage::makeDirectory('/news-list/' . $random . '/' . $lang->slug); //creates directory
+                                    Storage::makeDirectory('/news-list/' . '/' . $lang->slug); //creates directory
 
                                 }
-                                $target = Storage::path('/news-list/' . $random . '/' . $lang->slug . '/');
+                                $target = Storage::path('/news-list/' .  '/' . $lang->slug . '/');
 
                                 copy("zip://" . $zipFile_pdf . "#" . $filename, $target . $fileinfo['basename']);
-                                $newsTranslation->single_page_pdf = '/news-list/' . $random . '/' . $lang->slug . '/' . $fileinfo['basename'];
+                                $newsTranslation->single_page_pdf = '/news-list/' . $lang->slug . '/' . $fileinfo['basename'];
                             }
                         }
                     }
-                    $newsTranslation->save();
+                    $zip_pdf->close();
                 }
-                $zip_pdf->close();
+                    $target = Storage::path('/news-list/');
+                    $newsTranslation->save();
+                
+                }
 
-
+    
+    if(!is_null($request->file('images'))){
                 $zip = new \ZipArchive;
                 $zipFile = $request->file('images');
                 if ($zip->open($zipFile) === true) {
@@ -279,22 +290,22 @@ class UploadNewsCSVCmsController extends Controller
                     for ($i = 0; $i < $zip->numFiles; $i++) {
                         $filename = $zip->getNameIndex($i); //get pdf name
                         $fileinfo = pathinfo($filename); //file info in array form
-                        $random = Str::uuid();
-                        if (!Storage::exists('/news-list/' . $random)) {
+                        
+                        if (!Storage::exists('/news-list/')) {
 
-                            Storage::makeDirectory('/news-list/' . $random); //creates directory
+                            Storage::makeDirectory('/news-list/'); //creates directory
 
                         }
-                        $target = Storage::path('/news-list/' . $random . '/');
+                        $target = Storage::path('/news-list/');
 
                         if ($filename == $single_page_image) {
-                            $news->single_page_image = 'news-list/' . $random . '/' . $single_page_image;
+                            $news->single_page_image = 'news-list/' . $single_page_image;
                         } else if ($filename == $right_image) {
-                            $news->right_image = 'news-list/' . $random . '/' . $right_image;
+                            $news->right_image = 'news-list/' . $right_image;
                         } else if ($filename == $left_image) {
-                            $news->left_image = 'news-list/' . $random . '/' . $left_image;
+                            $news->left_image = 'news-list/' . $left_image;
                         } else if ($filename == $image) {
-                            $news->image = 'news-list/' . $random . '/' . $image;
+                            $news->image = 'news-list/' . $image;
                         }
 
 
@@ -329,6 +340,7 @@ class UploadNewsCSVCmsController extends Controller
 
 
                 }
+    }
             }
         }
         return redirect()->back()->with('success', 'News successfully imported!');

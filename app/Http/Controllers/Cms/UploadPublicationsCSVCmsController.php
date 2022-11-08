@@ -35,7 +35,7 @@ class UploadPublicationsCSVCmsController extends Controller
 
         $request->validate([
             'csv_file' => 'required|file|mimes:csv,txt',
-            'pdfs' => 'required|file|mimes:zip'
+            // 'pdfs' => 'required|file|mimes:zip'
 
         ]);
 
@@ -57,14 +57,13 @@ class UploadPublicationsCSVCmsController extends Controller
                         'ar' => $pub[1],
                     ];
                 }
-                if ($pub[2] == "" || $pub[3] == "") {
-                    throw ValidationException::withMessages(['Excerpt empty' => "the excerpt field should not be empty !"]);
-                } else {
+                
+                
                     $except = [
                         'en' => $pub[2],
                         'ar' => $pub[3]
                     ];
-                }
+                
                 if ($pub[4] == "") {
                     throw ValidationException::withMessages(['categories empty' => "the categories field should not be empty !"]);
                 } else {
@@ -137,24 +136,27 @@ class UploadPublicationsCSVCmsController extends Controller
 
                     $publicationTranslation->save();
                 }
-
-                $zip = new \ZipArchive;
-                $zipFile = $request->file('pdfs');
-                if ($zip->open($zipFile) === true) {
-
-                    for ($i = 0; $i < $zip->numFiles; $i++) {
-                        $filename = $zip->getNameIndex($i); //get pdf name
-                        $fileinfo = pathinfo($filename); //file info in array form
-
-                        $random = Str::uuid();
-                        if (!Storage::exists('/publications-list/' . $random)) {
-                            Storage::makeDirectory('/publications-list/' . $random, 0775, true); //creates directory
+    
+    
+                if(!is_null($request->file('pdfs'))){
+                    $zip = new \ZipArchive;
+                    $zipFile = $request->file('pdfs');
+                    if ($zip->open($zipFile) === true) {
+    
+                        for ($i = 0; $i < $zip->numFiles; $i++) {
+                            $filename = $zip->getNameIndex($i); //get pdf name
+                            $fileinfo = pathinfo($filename); //file info in array form
+    
+                            $random = Str::uuid();
+                            if (!Storage::exists('/publications-list/' . $random)) {
+                                Storage::makeDirectory('/publications-list/' . $random, 0775, true); //creates directory
+                            }
+                            $target = Storage::path('/publications-list/' . $random . '/');
+    
+                            copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
                         }
-                        $target = Storage::path('/publications-list/' . $random . '/');
-
-                        copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
-                    }
-                    $zip->close();
+                        $zip->close();
+                }
                 }
             }
         }
