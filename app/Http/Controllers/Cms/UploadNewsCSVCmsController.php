@@ -179,8 +179,36 @@ class UploadNewsCSVCmsController extends Controller
                 ];
 
 
+
+                
+               $str = $title['en'];
+               $isArabic = 0;
+               if (preg_match('/[اأإء-ي]/ui', $str)) {
+                $isArabic = 1;
+                } else {
+                $isArabic = 0;
+                }
+
+
+
+                $slug = "";
+                $separator = "-";
+                 $slug = trim($title['en']);
+
+                 $slug = mb_strtolower($slug, "UTF-8");;
+
+                 $slug = preg_replace("/[^a-z0-9_\sءاأإآؤئبتثجحخدذرزسشصضطظعغفقكلمنهويةى]#u/","", $slug);
+
+                 $slug = preg_replace("/[\s-]+/", " ", $slug);
+
+                 $slug = preg_replace("/[\s_]/", $separator, $slug);
+                
+                
+
                 $news = new NewsList();
                 $news->date = $date;
+                $news->slug = $slug;
+                $news->isArabic = $isArabic;
 
 
                 $news->image = '/news-list/' . $image;
