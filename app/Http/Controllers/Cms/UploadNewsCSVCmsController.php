@@ -118,12 +118,12 @@ class UploadNewsCSVCmsController extends Controller
                     ];
                 }
 
-               
-                    $excerpt = [
-                        'en' => $singleNews[6],
-                        'ar' => $singleNews[7],
-                    ];
-                
+
+                $excerpt = [
+                    'en' => $singleNews[6],
+                    'ar' => $singleNews[7],
+                ];
+
 
                 if ($singleNews[8] == "" || $singleNews[9] == "") {
                     throw ValidationException::withMessages(['news title empty' => "the news title field cannot be empty"]);
@@ -177,11 +177,11 @@ class UploadNewsCSVCmsController extends Controller
                     'en' => $singleNews[23],
                     'ar' => $singleNews[24]
                 ];
-                
+
 
                 $news = new NewsList();
                 $news->date = $date;
-               
+
 
                 $news->image = '/news-list/' . $image;
                 if ($single_page_image) {
@@ -198,7 +198,7 @@ class UploadNewsCSVCmsController extends Controller
                 $zip = new \ZipArchive;
                 $zipFile = Storage::get('news_images.zip');
                 // $zipFile = $request->file('images');
-                
+
 
                 if ($singleNews[25]) {
                     $gallery = $singleNews[25];
@@ -259,118 +259,117 @@ class UploadNewsCSVCmsController extends Controller
                     $newsTranslation->read_more = $read_more[$lang->slug];
                     $newsTranslation->right_text = $right_text[$lang->slug];
                     $newsTranslation->left_text = $left_text[$lang->slug];
-                    if (!is_null($request->file('pdfs'))) {
-                        $zipFile_pdf = $request->file('pdfs');
-                        if ($zip_pdf->open($zipFile_pdf) === true) {
-                            for ($i = 0; $i < $zip_pdf->numFiles; $i++) {
-                                $filename = $zip_pdf->getNameIndex($i);
-                                if ($filename == $pdf[$lang->slug]) {
-                                    $fileinfo = pathinfo($filename); //file info in array form
 
-
-                                    if (!Storage::exists('/news-list/')) {
-
-                                        Storage::makeDirectory('/news-list/' . '/' . $lang->slug); //creates directory
-                                        if ($zipFile_pdf) {
-
-                                            if ($zip_pdf->open($zipFile_pdf) === true) {
-                                                for ($i = 0; $i < $zip_pdf->numFiles; $i++) {
-                                                    $filename = $zip_pdf->getNameIndex($i);
-                                                    if ($filename == $pdf[$lang->slug]) {
-                                                        $fileinfo = pathinfo($filename); //file info in array form
-
-                                                        $random = Str::uuid();
-                                                        if (!Storage::exists('/news-list/' . $random)) {
-
-                                                            Storage::makeDirectory('/news-list/' . $random . '/' . $lang->slug); //creates directory
-
-                                                        }
-                                                        $target = Storage::path('/news-list/' . $random . '/' . $lang->slug . '/');
-
-                                                        copy("zip://" . $zipFile_pdf . "#" . $filename, $target . $fileinfo['basename']);
-                                                        $newsTranslation->single_page_pdf = '/news-list/' . $random . '/' . $lang->slug . '/' . $fileinfo['basename'];
-                                                    }
-                                                    $target = Storage::path('/news-list/' .  '/' . $lang->slug . '/');
-
-                                                    copy("zip://" . $zipFile_pdf . "#" . $filename, $target . $fileinfo['basename']);
-                                                    $newsTranslation->single_page_pdf = '/news-list/' . $lang->slug . '/' . $fileinfo['basename'];
-                                                }
-                                            }
-                                            $zip_pdf->close();
-                                        }
-                                        $zip_pdf->close();
-                                    }
-                                    $target = Storage::path('/news-list/');
-                                    $newsTranslation->save();
-                                }
-                            }
-                        }
-                        if (!is_null($request->file('images'))) {
-                            $zip = new \ZipArchive;
-                            $zipFile = $request->file('images');
-
-
-
-                            if ($zip->open($zipFile) === true) {
-
-                                for ($i = 0; $i < $zip->numFiles; $i++) {
-                                    $filename = $zip->getNameIndex($i); //get pdf name
-                                    $fileinfo = pathinfo($filename); //file info in array form
-
-                                    if (!Storage::exists('/news-list/')) {
-
-                                        Storage::makeDirectory('/news-list/'); //creates directory
-
-                                    }
-                                    $target = Storage::path('/news-list/');
-
-                                    if ($filename == $single_page_image) {
-                                        $news->single_page_image = 'news-list/' . $single_page_image;
-                                    } else if ($filename == $right_image) {
-                                        $news->right_image = 'news-list/' . $right_image;
-                                    } else if ($filename == $left_image) {
-                                        $news->left_image = 'news-list/' . $left_image;
-                                    } else if ($filename == $image) {
-                                        $news->image = 'news-list/' . $image;
-                                    }
-
-
-
-                                    $news->save();
-                                    copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
-                                }
-                                $zip->close();
-
-
-
-
-
-
-
-                                // for ($i = 0; $i < $zip_pdf->numFiles; $i++) {
-                                //     $filename = $zip_pdf->getNameIndex($i); //get pdf name
-                                //     $fileinfo = pathinfo($filename); //file info in array form
-
-                                //     $random = Str::uuid();
-                                //     if (!Storage::exists('/news-list/' . $random)) {
-
-                                //         Storage::makeDirectory('/news-list/' . $random); //creates directory
-
-                                //     }
-                                //     $target = Storage::path('/news-list/' . $random . '/');
-
-                                //     copy("zip://" . $zipFile_pdf . "#" . $filename, $target . $fileinfo['basename']);
-
-
-                                // }
-
-
-                            }
-                        }
-                    }
+                    $newsTranslation->save();
                 }
             }
         }
-            return redirect()->back()->with('success', 'News successfully imported!');
+
+
+
+        return redirect()->back()->with('success', 'News successfully imported!');
     }
 }
+                // if (!is_null($request->file('pdfs'))) {
+
+                // $zipFile_pdf = $request->file('pdfs');
+                // if ($zip_pdf->open($zipFile_pdf) === true) {
+                //     for ($i = 0; $i < $zip_pdf->numFiles; $i++) {
+                //         $filename = $zip_pdf->getNameIndex($i);
+                //         if ($filename == $pdf[$lang->slug]) {
+                //             $fileinfo = pathinfo($filename); //file info in array form
+
+
+                //             if (!Storage::exists('/news-list/')) {
+
+                //                 Storage::makeDirectory('/news-list/' . '/' . $lang->slug); //creates directory
+                //                 if ($zipFile_pdf) {
+
+                //                     if ($zip_pdf->open($zipFile_pdf) === true) {
+                //                         for ($i = 0; $i < $zip_pdf->numFiles; $i++) {
+                //                             $filename = $zip_pdf->getNameIndex($i);
+                //                             if ($filename == $pdf[$lang->slug]) {
+                //                                 $fileinfo = pathinfo($filename); //file info in array form
+
+                //                                 $random = Str::uuid();
+                //                                 if (!Storage::exists('/news-list/' . $random)) {
+
+                //                                     Storage::makeDirectory('/news-list/' . $random . '/' . $lang->slug); //creates directory
+
+                //                                 }
+                //                                 $target = Storage::path('/news-list/' . $random . '/' . $lang->slug . '/');
+
+                //                                 copy("zip://" . $zipFile_pdf . "#" . $filename, $target . $fileinfo['basename']);
+                //                                 $newsTranslation->single_page_pdf = '/news-list/' . $random . '/' . $lang->slug . '/' . $fileinfo['basename'];
+                //                             }
+                //                             $target = Storage::path('/news-list/' .  '/' . $lang->slug . '/');
+
+                //                             copy("zip://" . $zipFile_pdf . "#" . $filename, $target . $fileinfo['basename']);
+                //                             $newsTranslation->single_page_pdf = '/news-list/' . $lang->slug . '/' . $fileinfo['basename'];
+                //                         }
+                //                     }
+                //                     $zip_pdf->close();
+                //             }
+                //             $target = Storage::path('/news-list/');
+                //             $newsTranslation->save();
+                //         }
+                //     }
+
+                // if (!is_null($request->file('images'))) {
+                //     $zip = new \ZipArchive;
+                //     $zipFile = $request->file('images');
+
+
+
+                //     if ($zip->open($zipFile) === true) {
+
+                //         for ($i = 0; $i < $zip->numFiles; $i++) {
+                //             $filename = $zip->getNameIndex($i); //get pdf name
+                //             $fileinfo = pathinfo($filename); //file info in array form
+
+                //             if (!Storage::exists('/news-list/')) {
+
+                //                 Storage::makeDirectory('/news-list/'); //creates directory
+
+                //             }
+                //             $target = Storage::path('/news-list/');
+
+                //             if ($filename == $single_page_image) {
+                //                 $news->single_page_image = 'news-list/' . $single_page_image;
+                //             } else if ($filename == $right_image) {
+                //                 $news->right_image = 'news-list/' . $right_image;
+                //             } else if ($filename == $left_image) {
+                //                 $news->left_image = 'news-list/' . $left_image;
+                //             } else if ($filename == $image) {
+                //                 $news->image = 'news-list/' . $image;
+                //             }
+
+
+
+                //             $news->save();
+                //             copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
+                //         }
+                //         $zip->close();
+
+
+
+
+
+
+
+                // for ($i = 0; $i < $zip_pdf->numFiles; $i++) {
+                //     $filename = $zip_pdf->getNameIndex($i); //get pdf name
+                //     $fileinfo = pathinfo($filename); //file info in array form
+
+                //     $random = Str::uuid();
+                //     if (!Storage::exists('/news-list/' . $random)) {
+
+                //         Storage::makeDirectory('/news-list/' . $random); //creates directory
+
+                //     }
+                //     $target = Storage::path('/news-list/' . $random . '/');
+
+                //     copy("zip://" . $zipFile_pdf . "#" . $filename, $target . $fileinfo['basename']);
+
+
+                // }
