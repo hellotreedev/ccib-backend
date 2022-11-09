@@ -195,11 +195,10 @@ class UploadNewsCSVCmsController extends Controller
                 // if($more_news){
                 //     $news->more_news()->sync($more_news);
                 // }                        $zip = new \ZipArchive;
-
                 $zip = new \ZipArchive;
                 $zipFile = Storage::get('news_images.zip');
                 // $zipFile = $request->file('images');
-                dd($zip->open($zipFile));
+                
 
                 if ($singleNews[25]) {
                     $gallery = $singleNews[25];
