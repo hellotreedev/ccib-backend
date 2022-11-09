@@ -45,7 +45,7 @@ class UploadNewsCSVCmsController extends Controller
         $data = array_map('str_getcsv', file($path));
 
         foreach ($data as $key => $singleNews) {
-            if ($key == 0) continue;
+            if ($key == 0 || $key == 1) continue;
 
             else {
                 if ($singleNews[0] == "") {
@@ -118,14 +118,12 @@ class UploadNewsCSVCmsController extends Controller
                     ];
                 }
 
-                if ($singleNews[6] == "" || $singleNews[7] == "") {
-                    throw ValidationException::withMessages(['Excerpt empty' => "the excerpt field cannot be empty"]);
-                } else {
+               
                     $excerpt = [
                         'en' => $singleNews[6],
                         'ar' => $singleNews[7],
                     ];
-                }
+                
 
                 if ($singleNews[8] == "" || $singleNews[9] == "") {
                     throw ValidationException::withMessages(['news title empty' => "the news title field cannot be empty"]);
@@ -179,10 +177,12 @@ class UploadNewsCSVCmsController extends Controller
                     'en' => $singleNews[23],
                     'ar' => $singleNews[24]
                 ];
-
+                
 
                 $news = new NewsList();
                 $news->date = $date;
+               
+
                 $news->image = '/news-list/' . $image;
                 if ($single_page_image) {
                     $news->single_page_image = '/news-list/' . $single_page_image;
@@ -370,7 +370,7 @@ class UploadNewsCSVCmsController extends Controller
                     }
                 }
             }
-            return redirect()->back()->with('success', 'News successfully imported!');
         }
+            return redirect()->back()->with('success', 'News successfully imported!');
     }
 }
