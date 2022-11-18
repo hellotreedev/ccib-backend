@@ -44,6 +44,9 @@ class NewsController extends Controller
                     $query->where('news_category_id', $request->categories);
                 });
             })
+            ->when($request->queryString, function ($query) use ($request) {
+                $query->search($request->queryString);
+            })
             ->paginate(10);
 
         return $news;
