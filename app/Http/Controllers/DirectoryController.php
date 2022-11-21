@@ -31,13 +31,22 @@ class DirectoryController extends Controller
 
         $directory = DirectoryList::where("slug", $request->slug)
         ->with("member.sector_of_activity", "member.activity", "member.socials", "member.members_option")
-        ->firstOrFail();
+        ->first();
 
         $sector_of_activity = SectorOfActivity::orderBy("ht_pos")->orderBy("id")->get();
 
         $activity = Activity::orderBy("ht_pos")->orderBy("id")->get();
+        
+        $members = ActivityMember::when($request->slug)
+        ->whereHas('directory', function($query) use ($request){
+            $query->where('slug', $request->slug);
+        })
+        ->search($request->queryString)
+        ->with("sector_of_activity", "activity", "socials", "members_option")
+        ->distinct()
+        ->get();
 
-        return compact("single_directory_settings", "directory", "sector_of_activity", "activity");
+        return compact("single_directory_settings", "directory", "sector_of_activity", "activity" , "members");
     }
 
     public function searchDirectory(Request $request)
