@@ -23,8 +23,7 @@ class NewsController extends Controller
         $news_settings->twitter_icon = Storage::url($news_settings->twitter_icon);
         $news_settings->linkedin_icon = Storage::url($news_settings->linkedin_icon);
 
-        $years = Year::orderBy('ht_pos')->orderBy('id')->get();
-
+        $years = NewsList::select(\DB::raw('YEAR(date) as year'))->distinct()->get()->pluck('year');
         $categories = NewsCategory::orderBy('ht_pos')->orderBy('id')->get();
 
 

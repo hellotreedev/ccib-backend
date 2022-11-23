@@ -14,13 +14,13 @@ class NewsEventsController extends Controller
     public function index() {
         $settings = NewsEventsSetting::first();
 
-        $news = NewsList::orderBy("date", "desc")->get();
+        $news = NewsList::orderBy("date", "desc")->take(4)->get();
 
-        $previous_events = Event::orderBy("date", "desc")->where("date", "<=", Carbon::now())->get();
+        $previous_events = Event::orderBy("date", "desc")->where("date", "<=", Carbon::now())->take(4)->get();
 
-        $upcoming_events = Event::orderBy("date", "desc")->where("date", ">", Carbon::now())->get();
+        $upcoming_events = Event::orderBy("date", "desc")->where("date", ">", Carbon::now())->take(4)->get();
 
-        $publications = PublicationsList::orderBy("date", "desc")->get();
+        $publications = PublicationsList::orderBy("date", "desc")->take(4)->get();
 
         return compact('settings', 'news', 'previous_events', 'upcoming_events', 'publications');
     }
