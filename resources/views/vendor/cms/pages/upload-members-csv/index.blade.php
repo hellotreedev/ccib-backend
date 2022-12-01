@@ -27,6 +27,10 @@
                             <input type="file" class="form-control" name="csv_file">
                         </div>
                         <div class="form-group mb-3">
+                            <label>Relationships</label>
+                            <input type="file" class="form-control" name="relations">
+                        </div>
+                        <div class="form-group mb-3">
                             <label>images</label>
                             <input type="file" class="form-control" name="images">
                         </div>

@@ -50,17 +50,31 @@ class UploadSectorCSVCmsController extends Controller
             if ($key == 0) continue;
         
             else{
-                if($act[0] == "" || $act[1] == ""){
+                if($act[1] == "" || $act[2] == ""){
                     throw ValidationException::withMessages(['Title empty' => "the title field cannot be empty"]);
                 }else{
                     $title = [
-                        'en' => $act[0],
+                        'en' => $act[2],
                         'ar' => $act[1],
                     ];
                 }
 
+                if($act[0] == 0){
+                    throw ValidationException::withMessages(['sector Code empty' => "the sector code field cannot be empty"]);
+                }else{
+                    $sector_code = $act[0];
+                }
+
+                if($act[3] == 0){
+                    throw ValidationException::withMessages(['Directory Code empty' => "the Directory code field cannot be empty"]);
+                }else{
+                    $directory_code = $act[3];
+                }
+
                 $sector = new SectorOfActivity();
-                $sector->slug = Str::slug($act[0]);
+                $sector->slug = Str::slug($act[2]);
+                $sector->sector_code = $sector_code;
+                $sector->directory_code = $directory_code;
                 $sector->save();
 
                 $language = Language::get();

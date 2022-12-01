@@ -49,17 +49,31 @@ class UploadActivityCSVCmsController extends Controller
             if ($key == 0) continue;
         
             else{
-                if($act[0] == "" || $act[1] == ""){
+                if($act[1] == "" || $act[2] == ""){
                     throw ValidationException::withMessages(['Title empty' => "the title field cannot be empty"]);
                 }else{
                     $title = [
-                        'en' => $act[0],
+                        'en' => $act[2],
                         'ar' => $act[1],
                     ];
                 }
 
+                if($act[0] == 0){
+                    throw ValidationException::withMessages(['activity code empty' => "the activity code field cannot be empty"]);
+                }else{
+                    $act_code = $act[0];
+                }
+
+                if($act[3] == 0){
+                    throw ValidationException::withMessages(['sector code empty' => "the sector code field cannot be empty"]);
+                }else{
+                    $sector_code = $act[3];
+                }
+
                 $activity = new Activity();
-                $activity->slug = Str::slug($act[0]);
+                $activity->slug = Str::slug($act[2]);
+                $activity->activity_code = $act_code;
+                $activity->sector_code = $sector_code;
                 $activity->save();
 
                 $language = Language::get();
