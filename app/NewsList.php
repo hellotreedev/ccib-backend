@@ -128,6 +128,6 @@ class NewsList extends Model  implements TranslatableContract
         return $full_path_image;
     }
 
-
-	public function news_categories() { return $this->belongsToMany('App\NewsCategory', 'news_category_news_list', 'news_list_id', 'news_category_id')->orderBy('news_category_news_list.ht_pos'); } public function more_news() { return $this->belongsToMany('App\NewsList', 'news_list_news_list', 'news_list_id', 'other_news_list_id')->orderBy('news_list_news_list.ht_pos'); } 
+public function related_news() { return $this->belongsToMany('App\NewsList', 'related_news_news_list', 'news_list_id', 'other_news_list_id')->orderBy('related_news_news_list.ht_pos'); }
+	public function news_categories() { return $this->belongsToMany('App\NewsCategory', 'news_category_news_list', 'news_list_id', 'news_category_id')->orderBy('news_category_news_list.ht_pos'); }
 }

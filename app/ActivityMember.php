@@ -53,10 +53,7 @@ class ActivityMember extends Model  implements TranslatableContract
     {
         return $this->belongsToMany('App\Activity', 'activity_activity_member', 'activity_member_id', 'activity_id')->orderBy('activity_activity_member.ht_pos');
     }
-    public function directory()
-    {
-        return $this->belongsToMany('App\DirectoryList', 'directory_list_activity_member', 'activity_member_id', 'directory_list_id')->orderBy('directory_list_activity_member.ht_pos');
-    }
+    public function directory() { return $this->belongsToMany('App\DirectoryList', 'directory_activity_member', 'activity_member_id', 'directory_list_id')->orderBy('directory_activity_member.ht_pos'); }
 	
 	public function members_option() { return $this->belongsTo('App\MembersOption'); }
 

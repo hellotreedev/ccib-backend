@@ -34,7 +34,7 @@ class NewsController extends Controller
     {
         $news = NewsList::orderBy('date', "desc")
             ->with("news_categories")
-            ->with("more_news")
+            ->with("related_news")
             ->when($request->year, function ($query) use ($request) {
                 $query->whereYear("date", $request->year);
             })
@@ -90,7 +90,7 @@ class NewsController extends Controller
     {
         $news = NewsList::where("slug", $request->slug)
             ->with("news_categories")
-            ->with("more_news")
+            ->with("related_news")
             ->first();
 
         return $news;
