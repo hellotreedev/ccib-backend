@@ -23,6 +23,7 @@ class ActivityMember extends Model  implements TranslatableContract
     public $appends = ['image_full_path'];
 
     protected $searchable = [
+        'groupBy' => ['activity_members.id'],
         'columns' => [
             'activity_members_translations.title' => 10,
         ],

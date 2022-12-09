@@ -37,14 +37,18 @@ class DirectoryController extends Controller
 
         $activity = Activity::orderBy("ht_pos")->orderBy("id")->get();
         
-        $members = ActivityMember::when($request->slug)
-        ->whereHas('directory', function($query) use ($request){
-            $query->where('slug', $request->slug);
+        
+        
+        
+        $members = ActivityMember::
+            whereHas('directory', function($query) use ($request, $directory){
+            $query->where('directory_list_id', $directory->id);
         })
         ->search($request->queryString)
         ->with("sector_of_activity", "activity", "socials", "members_option")
         ->paginate(20);
-
+    
+        
         return compact("single_directory_settings", "directory", "sector_of_activity", "activity" , "members");
     }
 
