@@ -44,7 +44,7 @@ class DirectoryController extends Controller
         ->search($request->queryString)
         ->with("sector_of_activity", "activity", "socials", "members_option")
         ->distinct()
-        ->paginate(20);
+        ->get();
 
         return compact("single_directory_settings", "directory", "sector_of_activity", "activity" , "members");
     }
