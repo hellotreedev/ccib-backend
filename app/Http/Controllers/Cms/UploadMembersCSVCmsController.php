@@ -303,28 +303,28 @@ class UploadMembersCSVCmsController extends Controller
 
                 $zip = new \ZipArchive;
                 $zipFile = $request->file('images');
-                if ($zipFile) {
-                    if ($zip->open($zipFile) === true) {
+                // if ($zipFile) {
+                //     if ($zip->open($zipFile) === true) {
 
-                        for ($i = 0; $i < $zip->numFiles; $i++) {
-                            $filename = $zip->getNameIndex($i); //get pdf name
-                            $fileinfo = pathinfo($filename); //file info in array form
+                //         for ($i = 0; $i < $zip->numFiles; $i++) {
+                //             $filename = $zip->getNameIndex($i); //get pdf name
+                //             $fileinfo = pathinfo($filename); //file info in array form
 
-                            $random = Str::uuid();
-                            if (!Storage::exists('/activity-members/' . $random)) {
+                //             $random = Str::uuid();
+                //             if (!Storage::exists('/activity-members/' . $random)) {
 
-                                Storage::makeDirectory('/activity-members/' . $random); //creates directory
+                //                 Storage::makeDirectory('/activity-members/' . $random); //creates directory
 
-                            }
-                            $target = Storage::path('/activity-members/' . $random . '/');
-                            $activity_member->image = 'activity-members/' . $random . '/' . $image;
-                            $activity_member->save();
+                //             }
+                //             $target = Storage::path('/activity-members/' . $random . '/');
+                //             $activity_member->image = 'activity-members/' . $random . '/' . $image;
+                //             $activity_member->save();
 
-                            copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
-                        }
-                        $zip->close();
-                    }
-                }
+                //             copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
+                //         }
+                //         $zip->close();
+                //     }
+                // }
             }
         }
 

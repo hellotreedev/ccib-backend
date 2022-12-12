@@ -13,9 +13,9 @@ class Activity extends Model  implements TranslatableContract
 
     protected $guarded = ['id'];
 
-    protected $hidden = ['translations'];
+    public $hidden = ['translations'];
 
     public $translatedAttributes = ["title"];
 
-	
+	public function sector_of_activity() { return $this->belongsToMany('App\SectorOfActivity', 'sector_of_activity_activity', 'activity_id', 'sector_of_activity_id')->orderBy('sector_of_activity_activity.ht_pos'); } 
 }

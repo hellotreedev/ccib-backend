@@ -48,26 +48,26 @@ class UploadSectorCSVCmsController extends Controller
 
         foreach ($data as $key => $act) {
             if ($key == 0) continue;
-        
-            else{
-                if($act[1] == "" || $act[2] == ""){
+
+            else {
+                if ($act[1] == "" || $act[2] == "") {
                     throw ValidationException::withMessages(['Title empty' => "the title field cannot be empty"]);
-                }else{
+                } else {
                     $title = [
                         'en' => $act[2],
                         'ar' => $act[1],
                     ];
                 }
 
-                if($act[0] == 0){
+                if ($act[0] == 0) {
                     throw ValidationException::withMessages(['sector Code empty' => "the sector code field cannot be empty"]);
-                }else{
+                } else {
                     $sector_code = $act[0];
                 }
 
-                if($act[3] == 0){
+                if ($act[3] == 0) {
                     throw ValidationException::withMessages(['Directory Code empty' => "the Directory code field cannot be empty"]);
-                }else{
+                } else {
                     $directory_code = $act[3];
                 }
 
@@ -76,6 +76,12 @@ class UploadSectorCSVCmsController extends Controller
                 $sector->sector_code = $sector_code;
                 $sector->directory_code = $directory_code;
                 $sector->save();
+
+                $dir_related = DirectoryList::where('code', $sector->directory_code)->first();
+
+
+                $sector->directory()->attach($dir_related);
+
 
                 $language = Language::get();
 
@@ -87,10 +93,8 @@ class UploadSectorCSVCmsController extends Controller
                     $sectorTranslation->save();
                 }
             }
-        
         }
 
         return redirect()->back()->with('success', 'Sector of activitites successfully imported!');
-
     }
 }

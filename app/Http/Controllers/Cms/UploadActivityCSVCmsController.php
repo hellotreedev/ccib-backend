@@ -76,6 +76,10 @@ class UploadActivityCSVCmsController extends Controller
                 $activity->sector_code = $sector_code;
                 $activity->save();
 
+                $sector_related = SectorOfActivity::where('sector_code', $activity->sector_code)->first();
+
+                $activity->sector_of_activity()->attach($sector_related);
+
                 $language = Language::get();
 
                 foreach ($language as $key => $lang) {
