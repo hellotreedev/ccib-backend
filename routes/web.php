@@ -21,6 +21,26 @@ Route::get('/', function () {
 
 Route::get('/sitemap.xml', 'App\Http\Controllers\WebsiteController@sitemap');
 
+Route::get('/test/cms-pages-scan', function () {
+    $pages = \DB::table('cms_pages')->get();
+
+    $array = [];
+    foreach ($pages as $page) {
+        if ($page->fields) {
+            $fields = json_decode($page->fields);
+            foreach($fields as $field) {
+                if ($field->form_field == 'select' || $field->form_field == 'select multiple') {
+                    if ($page->database_table == $field->form_field_additionals_1) {
+                        $array[] = $page;
+                    }
+                }
+            }
+        }
+    }
+
+    return $array;
+});
+
 Route::get('/test', function () {
     $random = Str::uuid();
     $zip = new \ZipArchive;
@@ -33,10 +53,9 @@ Route::get('/test', function () {
 
                 Storage::makeDirectory('/news-list/'); //creates directory
 
-              }
+            }
             $target = Storage::path('/news-list/');
             copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
         }
     }
 });
-

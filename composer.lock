@@ -1378,12 +1378,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/hellotreedigital/cms.git",
-                "reference": "11b15e76d259d7732ccb0f1f3f19e50840452db7"
+                "reference": "04bf5910d5301d82f3b85a8bf893728be03220ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hellotreedigital/cms/zipball/11b15e76d259d7732ccb0f1f3f19e50840452db7",
-                "reference": "11b15e76d259d7732ccb0f1f3f19e50840452db7",
+                "url": "https://api.github.com/repos/hellotreedigital/cms/zipball/04bf5910d5301d82f3b85a8bf893728be03220ab",
+                "reference": "04bf5910d5301d82f3b85a8bf893728be03220ab",
                 "shasum": ""
             },
             "require": {
