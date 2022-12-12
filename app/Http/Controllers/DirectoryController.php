@@ -27,15 +27,32 @@ class DirectoryController extends Controller
     }
 
     public function singleDirectory(Request $request){
+            
         $single_directory_settings = SingleDirectorySetting::first();
 
         $directory = DirectoryList::where("slug", $request->slug)
         ->with("member.sector_of_activity", "member.activity", "member.socials", "member.members_option")
         ->first();
 
-        $sector_of_activity = SectorOfActivity::orderBy("ht_pos")->orderBy("id")->get();
+        $sector_of_activity = SectorOfActivity::whereHas('directory', function($query) use ($request, $directory){
+            $query->where('directory_list_id', $directory->id);
+        })->get();
+        
+        $sector_ids = [];
+        
+        foreach ($sector_of_activity as $key => $value) {
+            $sector_ids[] = $value->id;
+        }
+        
 
-        $activity = Activity::orderBy("ht_pos")->orderBy("id")->get();
+        $activity = Activity::whereHas('sector_of_activity', function($query) use ($request, $sector_ids){
+            $query->whereIn('sector_of_activity_id', $sector_ids);
+        })
+        ->when($request->sectors, function ($query) use ($request) {
+                $query->whereHas('sector_of_activity', function ($query) use ($request) {
+                    $query->whereIn('sector_of_activity_id', $request->sectors);
+                });
+        })->get();
         
         
         
@@ -44,10 +61,23 @@ class DirectoryController extends Controller
             whereHas('directory', function($query) use ($request, $directory){
             $query->where('directory_list_id', $directory->id);
         })
-        ->search($request->queryString)
+        ->when($request->sectors, function ($query) use ($request) {
+                $query->whereHas('sector_of_activity', function ($query) use ($request) {
+                    $query->whereIn('sector_of_activity_id', $request->sectors);
+                });
+            })
+            ->when($request->activity, function ($query) use ($request) {
+                $query->whereHas('activity', function ($query) use ($request) {
+                    $query->whereIn('activity_id', $request->activity);
+                });
+            })
+            ->when($request->queryString, function ($query) use ($request) {
+                $query->search($request->queryString);
+            })
         ->with("sector_of_activity", "activity", "socials", "members_option")
         ->paginate(20);
     
+
         
         return compact("single_directory_settings", "directory", "sector_of_activity", "activity" , "members");
     }
