@@ -43,24 +43,25 @@ class SearchController extends Controller
         $news = NewsList::search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->get();
+            ->paginate(4, ["*"], "newsPage");
+            
 
         $publications = PublicationsList::search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->get();
+            ->paginate(6 , ["*"], "publicationsPage");
 
         $previous_events = Event::where('date', '<', Carbon::now())
             ->search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->get();
+            ->paginate(4, ["*"], "prevEventsPage");
 
         $upcoming_events = Event::where('date', '>=', Carbon::now())
             ->search($request->queryString)
             ->orderBy("ht_pos")
             ->orderBy("id")
-            ->get();
+            ->paginate(4, ["*"], "upcomingEventsPage");
 
         $members = BoardList::search($request->queryString)
             ->orderBy("ht_pos")
@@ -101,10 +102,12 @@ class SearchController extends Controller
 
 
 
-        $pages = Page::search($request->queryString)
-        ->orderBy("id")
-        ->get()
-        ->toArray();
+        // $pages = Page::search($request->queryString)
+        // ->orderBy("id")
+        // ->get()
+        // ->toArray();
+        
+        $pages = [];
 
         $arr = [];
         if ($contact) {
@@ -116,6 +119,31 @@ class SearchController extends Controller
                 }
             }
         }
+        
+        $pagesAdded = [];
+        
+        
+        if(count($news)){
+            $pagesAdded[] = Page::where("slug", "/news")->first();
+        }
+        
+        if(count($publications)){
+             $pagesAdded[] = Page::where("slug", "/publications")->first();
+        }
+        
+        if(count($previous_events)){
+             $pagesAdded[] = Page::where("slug", "/prev-events")->first();
+        }
+        
+         if(count($upcoming_events)){
+             $pagesAdded[] = Page::where("slug", "/upcoming-events")->first();
+        }
+        
+        foreach($pagesAdded as $page){
+            $pages[] = $page; 
+        }
+        
+        
 
         if ($home) {
             $title = $home->pages;
@@ -243,16 +271,16 @@ class SearchController extends Controller
             }
         }
 
-        if ($directory) {
-            $title = $directory->pages;
-            $arr[] = $title;
+        // if ($directory) {
+        //     $title = $directory->pages;
+        //     $arr[] = $title;
 
-            foreach ($arr as $key => $value) {
-                if(!in_array($value, $pages)){
-                    $pages[] = $value;
-                }
-            }
-        }
+        //     foreach ($arr as $key => $value) {
+        //         if(!in_array($value, $pages)){
+        //             $pages[] = $value;
+        //         }
+        //     }
+        // }
 
         if(!empty($directory_list)){
             foreach ($directory_list as $key => $value) {

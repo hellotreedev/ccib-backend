@@ -32,7 +32,7 @@ class ProjectsSetting extends Model  implements TranslatableContract
 
     public $appends = ["phone_icon_full_path", "office_phone_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path"];
 
-    public $translatedAttributes = ["page_title","ongoing_projects","previous_projects"];
+    public $translatedAttributes = ["page_title","ongoing_projects","previous_projects", "related_news", "related_events"];
 
 	public function getPhoneIconFullPathAttribute(){
         {

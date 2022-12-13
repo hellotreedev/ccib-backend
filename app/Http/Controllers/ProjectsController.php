@@ -6,6 +6,7 @@ use App\Project;
 use App\ProjectCategory;
 use App\ProjectsSetting;
 use Illuminate\Http\Request;
+use App\NewsCategory;
 
 class ProjectsController extends Controller
 {
@@ -29,7 +30,33 @@ class ProjectsController extends Controller
     }
 
     public function singleProject(Request $request){
-        $project = Project::where("slug", $request->slug)->with("partners", "associates", "activity", "articles")->first();
-        return $project;
+        $project = Project::where("slug", $request->slug)->with("partners", "associates", "activity", "articles", "news.news_categories")->first();
+
+        $selectedNews = [];
+        $selectedEvents = [];
+        $catArr = [];
+
+
+        foreach ($project->news as $key => $el) {
+            $selectedNews[] = $el;
+        }
+
+        foreach ($selectedNews as $key => $value) {
+            foreach ($value->news_categories as $key => $cat) {
+                if (!in_array($cat->id, $catArr)) {
+                    $catArr[]  = $cat->id;
+                }
+            }
+        }
+
+        $categories = NewsCategory::whereIn('id', $catArr)->get();
+
+        $events = Project::where("slug", $request->slug)->with("events")->get();
+
+        foreach ($project->events as $key => $el) {
+            $selectedEvents[] = $el;
+        }
+        
+        return compact('project', 'selectedNews', 'selectedEvents', 'categories' );
     }
 }

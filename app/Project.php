@@ -72,6 +72,7 @@ class Project extends Model  implements TranslatableContract
     public function partners() { return $this->belongsToMany('App\ProjectPartner', 'project_project_partner', 'project_id', 'project_partner_id')->orderBy('project_project_partner.ht_pos'); }
 	public function associates() { return $this->belongsToMany('App\ProjectAssociate', 'project_project_associate', 'project_id', 'project_associate_id')->orderBy('project_project_associate.ht_pos'); } 
 	public function activity() { return $this->belongsToMany('App\ProjectActivity', 'project_project_activity', 'project_id' , 'project_activity_id')->orderBy('project_project_activity.ht_pos'); } 
-	public function articles() { return $this->belongsToMany('App\ProjectArticle', 'project_project_article', 'project_id')->orderBy('project_project_article.ht_pos'); } 
-
+	public function articles() { return $this->belongsToMany('App\ProjectArticle', 'project_project_article', 'project_id')->orderBy('project_project_article.ht_pos'); }
+	public function news() { return $this->belongsToMany('App\NewsList', 'news_project', 'project_id', 'news_list_id')->orderBy('news_project.ht_pos'); } 
+	public function events() { return $this->belongsToMany('App\Event', 'event_project', 'project_id', 'event_id')->orderBy('event_project.ht_pos'); } 
 }
