@@ -40,62 +40,62 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $news = NewsList::search($request->queryString)
+        $news = NewsList::search($request->queryString, null, true, true)
             ->orderBy("ht_pos")
             ->orderBy("id")
             ->paginate(4, ["*"], "newsPage");
             
 
-        $publications = PublicationsList::search($request->queryString)
+        $publications = PublicationsList::search($request->queryString, null, true, true)
             ->orderBy("ht_pos")
             ->orderBy("id")
             ->paginate(6 , ["*"], "publicationsPage");
 
         $previous_events = Event::where('date', '<', Carbon::now())
-            ->search($request->queryString)
+            ->search($request->queryString, null, true, true)
             ->orderBy("ht_pos")
             ->orderBy("id")
             ->paginate(4, ["*"], "prevEventsPage");
 
         $upcoming_events = Event::where('date', '>=', Carbon::now())
-            ->search($request->queryString)
+            ->search($request->queryString, null, true, true)
             ->orderBy("ht_pos")
             ->orderBy("id")
             ->paginate(4, ["*"], "upcomingEventsPage");
 
-        $members = BoardList::search($request->queryString)
+        $members = BoardList::search($request->queryString, null, true, true)
             ->orderBy("ht_pos")
             ->orderBy("id")
             ->get();
 
-        $contact = ContactSetting::with('pages')->search($request->queryString)
+        $contact = ContactSetting::with('pages')->search($request->queryString, null, true, true)
             ->first();
 
-        $home = HomeSetting::with('pages')->search($request->queryString)->first();
+        $home = HomeSetting::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $about = AboutSetting::with('pages')->search($request->queryString)->first();
+        $about = AboutSetting::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $chamber = ChamberSetting::with('pages')->search($request->queryString)->first();
+        $chamber = ChamberSetting::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $chamber_list = ChamberList::with('pages')->search($request->queryString)->get()->toArray();
+        $chamber_list = ChamberList::with('pages')->search($request->queryString, null, true, true)->get()->toArray();
         
-        $sponsor = RennovationSponsorsSetting::with('pages')->search($request->queryString)->first();
+        $sponsor = RennovationSponsorsSetting::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $board = BoardOfDirectorsSetting::with('pages')->search($request->queryString)->first();
+        $board = BoardOfDirectorsSetting::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $board_list = BoardList::with('pages')->search($request->queryString)->get()->toArray();
+        $board_list = BoardList::with('pages')->search($request->queryString, null, true, true)->get()->toArray();
 
-        $service = ServicesSetting::with('pages')->search($request->queryString)->first();
+        $service = ServicesSetting::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $service_list = ServicesList::with('pages')->search($request->queryString)->get()->toArray();
+        $service_list = ServicesList::with('pages')->search($request->queryString, null, true, true)->get()->toArray();
 
-        $pub = PublicationsSetting::with('pages')->search($request->queryString)->first();
+        $pub = PublicationsSetting::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $project = ProjectsSetting::with('pages')->search($request->queryString)->first();
+        $project = ProjectsSetting::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $directory = MembershipDirectory::with('pages')->search($request->queryString)->first();
+        $directory = MembershipDirectory::with('pages')->search($request->queryString, null, true, true)->first();
 
-        $directory_list = DirectoryList::with('pages')->search($request->queryString)->get()->toArray();
+        $directory_list = DirectoryList::with('pages')->search($request->queryString, null, true, true)->get()->toArray();
 
 
         

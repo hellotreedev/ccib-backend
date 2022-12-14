@@ -32,6 +32,8 @@ class NewsController extends Controller
 
     public function news(Request $request)
     {
+        
+        
         $news = NewsList::orderBy('date', "desc")
             ->with("news_categories")
             ->with("related_news")
@@ -92,7 +94,12 @@ class NewsController extends Controller
             ->with("news_categories")
             ->with("related_news")
             ->first();
+            
+        $news_settings = NewsSetting::first();
+        $news_settings->fb_icon = Storage::url($news_settings->fb_icon);
+        $news_settings->twitter_icon = Storage::url($news_settings->twitter_icon);
+        $news_settings->linkedin_icon = Storage::url($news_settings->linkedin_icon);
 
-        return $news;
+        return compact('news_settings', 'news');
     }
 }

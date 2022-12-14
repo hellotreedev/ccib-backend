@@ -29,9 +29,11 @@ class DirectoryController extends Controller
     public function singleDirectory(Request $request){
             
         $single_directory_settings = SingleDirectorySetting::first();
+        
+        $directory_settings = MembershipDirectory::first();
+        $directory_settings->image = Storage::url($directory_settings->image);
 
         $directory = DirectoryList::where("slug", $request->slug)
-        ->with("member.sector_of_activity", "member.activity", "member.socials", "member.members_option")
         ->first();
 
         $sector_of_activity = SectorOfActivity::whereHas('directory', function($query) use ($request, $directory){
@@ -79,7 +81,7 @@ class DirectoryController extends Controller
     
 
         
-        return compact("single_directory_settings", "directory", "sector_of_activity", "activity" , "members");
+        return compact("directory_settings","single_directory_settings", "directory", "sector_of_activity", "activity" , "members");
     }
 
     public function searchDirectory(Request $request)
