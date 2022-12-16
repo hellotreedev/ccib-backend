@@ -17,7 +17,7 @@ class HomeSetting extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    public $translatedAttributes = ["about_title","about_description","read_more","news_events_title","view_all","services_title","publications_title","eservices_title","eservices_description","learn_more","banner_title"];
+    public $translatedAttributes = ["about_title","about_description","read_more","news_events_title","view_all","services_title","publications_title","eservices_title","eservices_description","learn_more","banner_title", "download_pdf"];
 
     protected $searchable = [
         'groupBy' => ['home_settings.id'],
