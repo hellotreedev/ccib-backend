@@ -46,7 +46,7 @@ class NewsController extends Controller
                 });
             })
             ->when($request->queryString, function ($query) use ($request) {
-                $query->search($request->queryString);
+                $query->search($request->queryString, null, true, true);
             })
             ->paginate(10);
 
@@ -94,6 +94,7 @@ class NewsController extends Controller
             ->with("news_categories")
             ->with("related_news")
             ->first();
+            
             
         $news_settings = NewsSetting::first();
         $news_settings->fb_icon = Storage::url($news_settings->fb_icon);

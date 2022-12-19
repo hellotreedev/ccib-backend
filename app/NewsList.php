@@ -24,7 +24,7 @@ class NewsList extends Model  implements TranslatableContract
 
     public $translatedAttributes = ["title", "excerpt", "news_title", "single_page_pdf", "description", "share", "read_more", "left_text", "right_text"];
 
-    protected $appends = ['formatted_date', 'image_full_path', 'single_page_image_full_path', 'right_image_full_path', 'left_image_full_path', 'pdf_full_path', 'gallery_full_path'];
+    protected $appends = ['display_description', 'formatted_date', 'image_full_path', 'single_page_image_full_path', 'right_image_full_path', 'left_image_full_path', 'pdf_full_path', 'gallery_full_path'];
 
     protected $searchable = [
         'groupBy' => ['news_list.id'],
@@ -81,6 +81,16 @@ class NewsList extends Model  implements TranslatableContract
         $month_string = $months[$month - 1];
 
         return "$day $month_string $year";
+    }
+    
+    public function getDisplayDescriptionAttribute() {
+        $desc = $this->description;
+        
+        if($this->isArabic){
+            $desc = $this->translate('ar')->description;
+        }
+        
+        return $desc;
     }
 
     public function getPdfFullPathAttribute()
