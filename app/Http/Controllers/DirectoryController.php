@@ -76,7 +76,7 @@ class DirectoryController extends Controller
             ->when($request->queryString, function ($query) use ($request) {
                 $query->search($request->queryString, null, true, true);
             })
-        ->with("sector_of_activity", "activity", "socials", "members_option")
+        ->with("socials", "members_option")
         ->paginate(20);
     
 
