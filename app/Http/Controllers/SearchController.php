@@ -214,7 +214,8 @@ class SearchController extends Controller
 
         if(!empty($board_list)){
             foreach ($board_list as $key => $value) {
-                $title = $value['pages'];
+                $title = "/board-of-directors";
+                $title = Page::where("slug", $title)->first();
                 $arr[] = $title;
     
                 foreach ($arr as $key => $val) {
@@ -238,7 +239,8 @@ class SearchController extends Controller
 
         if(!empty($service_list)){
             foreach ($service_list as $key => $value) {
-                $title = $value['pages'];
+                $title = "/services";
+                $title = Page::where("slug", $title)->first();
                 $arr[] = $title;
     
                 foreach ($arr as $key => $val) {
@@ -271,20 +273,22 @@ class SearchController extends Controller
             }
         }
 
-        // if ($directory) {
-        //     $title = $directory->pages;
-        //     $arr[] = $title;
+        if ($directory) {
+            $title = "/membership-directory";
+            $title = Page::where("slug", $title)->first();
+            $arr[] = $title;
 
-        //     foreach ($arr as $key => $value) {
-        //         if(!in_array($value, $pages)){
-        //             $pages[] = $value;
-        //         }
-        //     }
-        // }
+            foreach ($arr as $key => $value) {
+                if(!in_array($value, $pages)){
+                    $pages[] = $value;
+                }
+            }
+        }
 
         if(!empty($directory_list)){
             foreach ($directory_list as $key => $value) {
-                $title = $value['pages'];
+                $title = "/membership-directory";
+                $title = Page::where("slug", $title)->first();
                 $arr[] = $title;
     
                 foreach ($arr as $key => $val) {

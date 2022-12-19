@@ -13,7 +13,7 @@ class PublicationController extends Controller
     public function index() {
         $publications_settings = PublicationsSetting::first();
 
-        $categories = Category::get();
+        $categories = Category::orderBy('ht_pos')->get();
 
          return compact("publications_settings", "categories");
     }

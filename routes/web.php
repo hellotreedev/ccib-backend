@@ -1,6 +1,8 @@
 <?php
 
 include 'cms.php';
+use App\RennovationSponsorsList;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -58,4 +60,16 @@ Route::get('/test', function () {
             copy("zip://" . $zipFile . "#" . $filename, $target . $fileinfo['basename']);
         }
     }
+});
+
+Route::get('/web', function() {
+    $sponsors = RennovationSponsorsList::get();
+        foreach($sponsors as $sponsor){
+            if($sponsor->website_url){
+                $sponsor->website_url = "https://" . $sponsor->website_url;
+                $sponsor->save();
+            }
+        }
+        
+        
 });
