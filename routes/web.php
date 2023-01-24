@@ -56,7 +56,6 @@ Route::get('/slug-commas', function () {
             $replaced = str_replace(',', '', $singleNews->slug);
             $singleNews->slug = $replaced;
             $singleNews->save();
-            dd($singleNews->slug);
         }
     }
     
