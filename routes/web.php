@@ -1,6 +1,8 @@
 <?php
 
 include 'cms.php';
+
+use App\NewsList;
 use App\RennovationSponsorsList;
 
 
@@ -30,7 +32,7 @@ Route::get('/test/cms-pages-scan', function () {
     foreach ($pages as $page) {
         if ($page->fields) {
             $fields = json_decode($page->fields);
-            foreach($fields as $field) {
+            foreach ($fields as $field) {
                 if ($field->form_field == 'select' || $field->form_field == 'select multiple') {
                     if ($page->database_table == $field->form_field_additionals_1) {
                         $array[] = $page;
@@ -41,6 +43,20 @@ Route::get('/test/cms-pages-scan', function () {
     }
 
     return $array;
+});
+
+Route::get('/slug-commas', function () {
+    $news = NewsList::get();
+
+    $searchForValue = ',';
+
+    foreach ($news as $key => $singleNews) {
+        if (strpos($singleNews->slug, $searchForValue) !== false) {
+            str_replace(',', '', $singleNews->slug);
+            $singleNews->save();
+        }
+    }
+    
 });
 
 Route::get('/test', function () {
@@ -62,14 +78,12 @@ Route::get('/test', function () {
     }
 });
 
-Route::get('/web', function() {
+Route::get('/web', function () {
     $sponsors = RennovationSponsorsList::get();
-        foreach($sponsors as $sponsor){
-            if($sponsor->website_url){
-                $sponsor->website_url = "https://" . $sponsor->website_url;
-                $sponsor->save();
-            }
+    foreach ($sponsors as $sponsor) {
+        if ($sponsor->website_url) {
+            $sponsor->website_url = "https://" . $sponsor->website_url;
+            $sponsor->save();
         }
-        
-        
+    }
 });
