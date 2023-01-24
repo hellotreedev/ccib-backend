@@ -52,8 +52,11 @@ Route::get('/slug-commas', function () {
 
     foreach ($news as $key => $singleNews) {
         if (strpos($singleNews->slug, $searchForValue) !== false) {
-            str_replace(',', '', $singleNews->slug);
+
+            $replaced = str_replace(',', '', $singleNews->slug);
+            $singleNews->slug = $replaced;
             $singleNews->save();
+            dd($singleNews->slug);
         }
     }
     
