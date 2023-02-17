@@ -16,9 +16,9 @@ class Project extends Model  implements TranslatableContract
 
     protected $hidden = ['translations'];
 
-    protected $appends = ['image_full_path', 'beneficiary_image_full_path', 'disclaimer_image_1_full_path', 'disclaimer_image_2_full_path', 'pdf_full_path'];
+    protected $appends = ['image_full_path', 'beneficiary_image_full_path', 'disclaimer_image_1_full_path', 'disclaimer_image_2_full_path', 'pdf_full_path', "contact_image_path"];
 
-    public $translatedAttributes = ["title","subtitle","contact_label","single_page_title","brief_title","brief_description","partners_title","strategic_title","benef_title","benef_description","objectives_title","objectives_description","action_title","action_description","budget_title","budget_description","activities_title","disclaimer_left","disclaimer_right","related_articles_title","pdf","phone_text", "office_phone_text", "ext_text", "download_pdf_text", "disclaimer_title"];
+    public $translatedAttributes = ["title","subtitle","contact_label","single_page_title","brief_title","brief_description","partners_title","strategic_title","benef_title","benef_description","objectives_title","objectives_description","action_title","action_description","budget_title","budget_description","activities_title","disclaimer_left","disclaimer_right","related_articles_title","pdf","phone_text", "office_phone_text", "ext_text", "download_pdf_text", "disclaimer_title", "contact_title", "contact_subtitle", "contact_phone_label", "contact_us"];
 
 
 
@@ -62,6 +62,15 @@ class Project extends Model  implements TranslatableContract
         if (isset($this->pdf)) {
             $pdf_full_path = Helper::fullPath($this->pdf);
             return $pdf_full_path;
+        } else {
+            return null;
+        }
+    }
+    
+    public function getContactImagePathAttribute(){
+        if ($this->contact_image) {
+            $disclaimer_image_2_full_path = Helper::fullPath($this->contact_image);
+            return $disclaimer_image_2_full_path;
         } else {
             return null;
         }
