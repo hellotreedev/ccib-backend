@@ -20,17 +20,22 @@ class ProjectsController extends Controller
     }
 
     public function ongoingProjects() {
-        $ongoing_projects = Project::where("ongoing", 1)->with("project_categories")->get();
-        return compact('ongoing_projects');
+        // $ongoing_projects = Project::where("ongoing", 1)->with("project_categories")->get();
+        $ongoing_projects_categories = ProjectCategory::select()->whereHas('projects', function($projects) {
+            $projects->where("ongoing",1);
+        })->with('projects')->get();
+        return compact('ongoing_projects_categories');
     }
 
     public function previousProjects() {
-        $previous_projects = Project::where("ongoing",0)->with("project_categories")->get();
-        return compact('previous_projects');
+        $previous_projects_categories = ProjectCategory::select()->whereHas('projects', function($projects) {
+            $projects->where("ongoing",0);
+        })->with('projects')->get();
+        return compact('previous_projects_categories');
     }
 
     public function singleProject(Request $request){
-        $project = Project::where("slug", $request->slug)->with("partners", "associates", "activity", "articles", "news.news_categories")->first();
+        $project = Project::where("slug", $request->slug)->with("partners","news_categories", "associates", "activity", "articles", "news.news_categories")->first();
 
         $selectedNews = [];
         $selectedEvents = [];

@@ -75,4 +75,5 @@ class Project extends Model  implements TranslatableContract
 	public function articles() { return $this->belongsToMany('App\ProjectArticle', 'project_project_article', 'project_id')->orderBy('project_project_article.ht_pos'); }
 	public function news() { return $this->belongsToMany('App\NewsList', 'news_project', 'project_id', 'news_list_id')->orderBy('news_project.ht_pos'); } 
 	public function events() { return $this->belongsToMany('App\Event', 'event_project', 'project_id', 'event_id')->orderBy('event_project.ht_pos'); } 
+    public function news_categories() { return $this->belongsTo('App\NewsCategory'); }
 }

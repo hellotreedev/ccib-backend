@@ -16,4 +16,6 @@ class ProjectTranslation extends Model
     
 
 	
+
+    /* Start custom functions *//* End custom functions */
 }

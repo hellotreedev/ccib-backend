@@ -17,5 +17,6 @@ class ProjectCategory extends Model  implements TranslatableContract
 
     public $translatedAttributes = ["title"];
 
+    public function projects() { return $this->belongsToMany('App\Project', 'project_category_project',  'project_category_id', 'project_id')->orderBy('project_category_project.ht_pos'); } 
 	
 }
