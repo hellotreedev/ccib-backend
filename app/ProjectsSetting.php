@@ -30,9 +30,9 @@ class ProjectsSetting extends Model  implements TranslatableContract
         ],
     ];
 
-    public $appends = ["phone_icon_full_path", "office_phone_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path"];
+    public $appends = ["phone_icon_full_path", "office_phone_icon_full_path", "ext_icon_full_path", "mail_icon_full_path", "download_icon_full_path", "contact_image_path"];
 
-    public $translatedAttributes = ["page_title","ongoing_projects","previous_projects", "related_news", "view_all", "learn_more", "closed_label"];
+    public $translatedAttributes = ["page_title","ongoing_projects","previous_projects", "related_news", "view_all", "learn_more", "closed_label", "contact_title", "contact_subtitle", "contact_phone_label", "contact_us"];
 
 	public function getPhoneIconFullPathAttribute(){
         {
@@ -71,6 +71,17 @@ class ProjectsSetting extends Model  implements TranslatableContract
         {
             if (isset($this->mail_icon)) {
                 $mail_icon_full_path = Helper::fullPath($this->mail_icon);
+                return $mail_icon_full_path;
+            } else {
+                return null;
+            }
+        }
+    }
+    
+    public function getContactImagePathAttribute(){
+        {
+            if (($this->contact_image)) {
+                $mail_icon_full_path = Helper::fullPath($this->contact_image);
                 return $mail_icon_full_path;
             } else {
                 return null;

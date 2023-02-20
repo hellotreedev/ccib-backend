@@ -23,14 +23,14 @@ class ProjectsController extends Controller
         // $ongoing_projects = Project::where("ongoing", 1)->with("project_categories")->get();
         $ongoing_projects_categories = ProjectCategory::select()->whereHas('projects', function($projects) {
             $projects->where("ongoing",1);
-        })->with('projects')->get();
+        })->with('projects.project_categories')->get();
         return compact('ongoing_projects_categories');
     }
 
     public function previousProjects() {
         $previous_projects_categories = ProjectCategory::select()->whereHas('projects', function($projects) {
             $projects->where("ongoing",0);
-        })->with('projects')->get();
+        })->with('projects.project_categories')->get();
         return compact('previous_projects_categories');
     }
 
