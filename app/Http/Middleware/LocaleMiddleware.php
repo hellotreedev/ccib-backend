@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Hellotreedigital\Cms\Models\Language;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\URL;
 
 class LocaleMiddleware
 {
@@ -18,9 +19,14 @@ class LocaleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $language = Language::where('slug', $request->locale)->firstOrFail();
+        $language = Language::where('slug', $request->locale)->first();
+        if(!$language){
+            return response()->json(['404' => true]);
+        }else{
+            App::setLocale($language->slug);
+            URL::defaults(['locale' => $language->slug]);
+        }
 
-        App::setLocale($language->slug);
 
         return $next($request);
     }
