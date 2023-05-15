@@ -36,6 +36,31 @@ class ContactController extends Controller
 
         return compact('contact_settings', 'contact_locations');
     }
+    
+    
+    public function contactData($locale)
+    {
+        $contact_settings = ContactSetting::with('pages')->first();
+        $contact_settings->background_image = Storage::url($contact_settings->background_image);
+
+        $contact_locations = ContactLocation::orderBy("ht_pos")->orderBy("id")->get();
+
+        $map_coord = new stdClass();
+
+
+        foreach ($contact_locations as $key => $value) {
+            if ($value->map_coordinates) {
+                $coordinates = explode(',', $value->map_coordinates);
+
+                $value->lat = $coordinates[0];
+                $value->long = $coordinates[1];
+            }
+        }
+
+
+
+        return compact('contact_settings', 'contact_locations');
+    }
 
 
 

@@ -1,0 +1,11 @@
+[13-Apr-2023 07:40:03 America/Boise] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.0.2". You are running 7.4.33. in /home4/cciborgl/public_html/backend/vendor/composer/platform_check.php on line 24
+[13-Apr-2023 07:40:43 America/Boise] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.0.2". You are running 7.4.33. in /home4/cciborgl/public_html/backend/vendor/composer/platform_check.php on line 24
+[13-Apr-2023 07:40:50 America/Boise] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.0.2". You are running 7.4.33. in /home4/cciborgl/public_html/backend/vendor/composer/platform_check.php on line 24
+[05-May-2023 06:12:27 America/Boise] PHP Fatal error:  Cannot use empty array elements in arrays in /home4/cciborgl/public_html/backend/app/Http/Kernel.php on line 44
+[05-May-2023 06:12:27 America/Boise] PHP Fatal error:  Cannot use empty array elements in arrays in /home4/cciborgl/public_html/backend/app/Http/Kernel.php on line 44
+[05-May-2023 06:12:30 America/Boise] PHP Fatal error:  Cannot use empty array elements in arrays in /home4/cciborgl/public_html/backend/app/Http/Kernel.php on line 44
+[05-May-2023 06:12:30 America/Boise] PHP Fatal error:  Cannot use empty array elements in arrays in /home4/cciborgl/public_html/backend/app/Http/Kernel.php on line 44
+[05-May-2023 06:12:30 America/Boise] PHP Fatal error:  Cannot use empty array elements in arrays in /home4/cciborgl/public_html/backend/app/Http/Kernel.php on line 44
+[05-May-2023 06:12:31 America/Boise] PHP Fatal error:  Cannot use empty array elements in arrays in /home4/cciborgl/public_html/backend/app/Http/Kernel.php on line 44
+[05-May-2023 06:12:47 America/Boise] PHP Fatal error:  Cannot use empty array elements in arrays in /home4/cciborgl/public_html/backend/app/Http/Kernel.php on line 44
+[05-May-2023 06:12:47 America/Boise] PHP Fatal error:  Cannot use empty array elements in arrays in /home4/cciborgl/public_html/backend/app/Http/Kernel.php on line 44
