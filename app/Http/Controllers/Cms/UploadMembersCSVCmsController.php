@@ -45,9 +45,15 @@ class UploadMembersCSVCmsController extends Controller
             // 'csv_file' => 'required|file|mimes:csv,txt',
             // 'relations' => 'required|file|mimes:csv,txt',
         ]);
+        
+
+         
+
 
         $path = $request->file('csv_file')->getRealPath();
         $data = array_map('str_getcsv', file($path));
+
+
 
 
         foreach ($data as $key => $member) {
@@ -61,20 +67,22 @@ class UploadMembersCSVCmsController extends Controller
                 //     $sectors = explode(',',  $sectors);
                 // }
 
-                if ($member[0] == "") {
-                    throw ValidationException::withMessages(['TP empty' => "the TP field cannot be empty !"]);
+                if (!isset($member[0])) {
+                    throw ValidationException::withMessages(['TP empty' => "the TP field cannot be empty !" . $key]);
                 } else {
                     $TP = $member[0];
                 }
-
-                if ($member[1] == "") {
-                    throw ValidationException::withMessages(['IDNO empty' => "the IDNO field cannot be empty !"]);
+                
+                // if($key == 4468)    
+                // dd($member);
+                if (!isset($member[1])) {
+                    throw ValidationException::withMessages(['IDNO empty' => "the IDNO field cannot be empty !" . $key]);
                 } else {
                     $IDNO = $member[1];
                 }
 
-                if ($member[2] == "" || $member[3] == "") {
-                    throw ValidationException::withMessages(['Title empty' => "the title field cannot be empty"]);
+                if (!isset($member[2]) || !isset($member[3])) {
+                    throw ValidationException::withMessages(['Title empty' => "the title field cannot be empty" . $key]);
                 } else {
                     $title = [
                         'en' => $member[2],
@@ -82,21 +90,29 @@ class UploadMembersCSVCmsController extends Controller
                     ];
                 }
 
-                if ($member[4] == "" || $member[5] == "") {
-                    throw ValidationException::withMessages(['description empty' => "the description field cannot be empty"]);
+                if (!isset($member[4]) || !isset($member[5])) {
+                    throw ValidationException::withMessages(['description empty' => "the description field cannot be empty" . $key]);
                 } else {
                     $desc = [
                         'en' => $member[4],
                         'ar' => $member[5],
                     ];
                 }
-
-                $location_text = [
-                    'en' => $member[6],
-                    'ar' => $member[7],
-                ];
-
-                if ($member[8] !== "NULL") {
+                
+                if (isset($member[6]) && isset($member[7])) {
+                    $location_text = [
+                        'en' => $member[6],
+                        'ar' => $member[7],
+                    ];
+                }else{
+                    $location_text = [
+                        'en' => " ",
+                        'ar' => " ",
+                    ];
+                }
+                
+            
+                if (isset($member[8])) {
                     $phone1 = "+961" . str_replace("/", "", $member[8]);
                     $phone1_text = $phone1;
                 } else {
@@ -104,7 +120,7 @@ class UploadMembersCSVCmsController extends Controller
                     $phone1_text = "";
                 }
 
-                if ($member[9] !== "NULL") {
+                if (isset($member[9])) {
                     $phone2 = "+961" . str_replace("/", "", $member[9]);
                     $phone2_text = $phone2;
                 } else {
@@ -112,16 +128,21 @@ class UploadMembersCSVCmsController extends Controller
                     $phone2_text = "";
                 }
 
-                if ($member[10] !== "NULL") {
+                if (isset($member[10])) {
                     $phone3 = "+961" . str_replace("/", "", $member[10]);
                     $phone3_text = $phone3;
                 } else {
                     $phone3 = "";
                     $phone3_text = "";
                 }
-
-                $email = $member[11];
-                $website = $member[12];
+                
+                if(isset($member[11])){
+                    $email = $member[11];
+                }
+                
+                if(isset($member[12])){
+                    $website = $member[12];
+                }
 
                 $learn_more = [
                     'en' => "Learn More",
@@ -327,33 +348,52 @@ class UploadMembersCSVCmsController extends Controller
                 // }
             }
         }
-
-        $relation_path = $request->file('relations')->getRealPath();
+        
+             $relation_path = $request->file('relations')->getRealPath();
         $relation_data = array_map('str_getcsv', file($relation_path));
         foreach ($relation_data as $key => $rel) {
             if ($key == 0) continue;
             else {
+                
+                if(isset($rel[0]))
                 $TP = $rel[0];
+                
+                
+            if(isset($rel[1]))
                 $IDNO = $rel[1];
+                   
+                
+                if(isset($rel[2]))
                 $act_code = $rel[2];
+                
+                
                 $current_member = ActivityMember::where('TP', (int)$TP)->where('IDNO', (int)$IDNO)->first();
                 $current_activity = Activity::where('activity_code', (int)$act_code)->first();
+                
                 if ($current_member) {
                     if ($current_activity) {
-                        $current_member->activity()->attach($current_activity->id);
+                        
+                        $current_member->activity()->syncWithoutDetaching([$current_activity->id]);
+                        $current_member->save();
                         $current_sector = SectorOfActivity::where('sector_code', $current_activity->sector_code)->first();
                         if ($current_sector) {
-                            $current_member->sector_of_activity()->attach($current_sector->id);
+                            $current_member->sector_of_activity()->syncWithoutDetaching([$current_sector->id]);
+                            $current_member->save();
                             $current_directory = DirectoryList::where('code', $current_sector->directory_code)->first();
                             if ($current_directory) {
-                                $current_member->directory()->attach($current_directory->id);
+                                $current_member->directory()->syncWithoutDetaching([$current_directory->id]);
+                                $current_member->save();
                             }
                         }
                     }
+                
                 }
+                
             }
         }
+     return redirect()->back()->with('success', 'Members successfully imported!');  
 
-        return redirect()->back()->with('success', 'Members successfully imported!');
+    
+        
     }
 }
