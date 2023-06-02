@@ -72,7 +72,7 @@ class EventsController extends Controller
 
    
 
-    public function contact(Request $request){
+    public function contactForm(Request $request){
         $request->validate([
             'first_name' => 'required|regex:/^[a-zA-Z ]+$/',
             'last_name' => 'required|regex:/^[a-zA-Z ]+$/',

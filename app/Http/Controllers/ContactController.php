@@ -64,7 +64,7 @@ class ContactController extends Controller
 
 
 
-    public function contact($locale, Request $request)
+    public function contactForm($locale, Request $request)
     {
         $request->validate([
             'first_name' => 'required|regex:/^[a-zA-Z ]+$/',

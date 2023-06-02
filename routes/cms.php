@@ -11,6 +11,8 @@ Route::prefix(config('hellotree.cms_route_prefix'))->middleware(['admin'])->grou
 
     /* Start admin route group */
 
+    Route::get('/news-list','App\Http\Controllers\Cms\NewsListCmsController@index');
+    
     Route::post('/activity-members','App\Http\Controllers\Cms\ActivityMembersCmsController@store');
     Route::put('/activity-members/{id}','App\Http\Controllers\Cms\ActivityMembersCmsController@update');
 
