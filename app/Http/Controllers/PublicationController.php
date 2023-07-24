@@ -37,7 +37,7 @@ class PublicationController extends Controller
                     $query->where('category_id', $request->categories);
                 });
             })
-            ->when($request->month, function ($query) use ($request) {
+            ->when($request->date, function ($query) use ($request) {
                 $query->whereMonth('date', $month)->whereYear('date', $currentYear);
             })
             ->paginate(9);
