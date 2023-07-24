@@ -22,10 +22,12 @@ class PublicationController extends Controller
 
     public function publications(Request $request)
     {
-        $currentYear = Carbon::now()->year;
+        
         $month = '';
-        if (isset($request->date)) {
+        $currentYear = '';
+        if (isset($request->date) && $request->date) {
             $month = Carbon::createFromFormat('m-Y', $request->date);
+            $currentYear = $month->format('Y');
             $month = $month->format('m');
         }
 
@@ -37,7 +39,7 @@ class PublicationController extends Controller
                     $query->where('category_id', $request->categories);
                 });
             })
-            ->when($request->date, function ($query) use ($request) {
+            ->when($request->date, function ($query) use ($request, $month, $currentYear) {
                 $query->whereMonth('date', $month)->whereYear('date', $currentYear);
             })
             ->paginate(9);
