@@ -70,14 +70,6 @@ class UploadPublicationsCSVCmsController extends Controller
                     $categories = $pub[4];
                     $categories = explode(',',  $categories);
                 }
-                $download_pdf = [
-                    'en' => $pub[7],
-                    'ar' => $pub[9]
-                ];
-                $ar_download_pdf = [
-                    'en' => $pub[8],
-                    'ar' => $pub[10]
-                ];
                 $pdf_en = [
                     'en' => $pub[11],
                     'ar' => $pub[13]
@@ -125,8 +117,6 @@ class UploadPublicationsCSVCmsController extends Controller
                     $publicationTranslation->locale = $lang->slug;
                     $publicationTranslation->title = $title[$lang->slug];
                     $publicationTranslation->excerpt = $except[$lang->slug];
-                    $publicationTranslation->download_pdf = $download_pdf[$lang->slug];
-                    $publicationTranslation->ar_download_pdf = $ar_download_pdf[$lang->slug];
                     if ($pdf_en[$lang->slug]) {
                         $publicationTranslation->pdf_en = 'publications-list/' . $pdf_en[$lang->slug];
                     }
