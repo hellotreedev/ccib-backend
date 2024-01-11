@@ -138,10 +138,14 @@ class UploadMembersCSVCmsController extends Controller
                 
                 if(isset($member[11])){
                     $email = $member[11];
+                }else{
+                    $email = "";
                 }
                 
                 if(isset($member[12])){
                     $website = $member[12];
+                }else{
+                    $website = "";
                 }
 
                 $learn_more = [

@@ -4,6 +4,7 @@ include 'cms.php';
 
 use App\NewsList;
 use App\RennovationSponsorsList;
+use App\ActivityMember;
 
 
 use Illuminate\Support\Facades\Route;
@@ -88,4 +89,34 @@ Route::get('/web', function () {
             $sponsor->save();
         }
     }
+});
+
+Route::get('/swap', function(){
+   $members = ActivityMember::all();
+
+    foreach ($members as $member) {
+        // Retrieve current translations for title and description
+        $englishTitle = $member->translate('en')->title ?? '';
+        $arabicTitle = $member->translate('ar')->title ?? '';
+        $englishDescription = $member->translate('en')->description ?? '';
+        $arabicDescription = $member->translate('ar')->description ?? '';
+
+        // Retrieve current translations for location_text
+        $englishLocationText = $member->translate('en')->location_text ?? '';
+        $arabicLocationText = $member->translate('ar')->location_text ?? '';
+
+        // Swap and update translations for title and description
+        $member->getTranslation('en')->update([
+            'title' => $arabicTitle, 
+            'description' => $arabicDescription,
+            'location_text' => $arabicLocationText
+        ]);
+        $member->getTranslation('ar')->update([
+            'title' => $englishTitle, 
+            'description' => $englishDescription,
+            'location_text' => $englishLocationText
+        ]);
+    }
+
+    return "Translations fixed";
 });
